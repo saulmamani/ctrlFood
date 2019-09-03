@@ -1,9 +1,3 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $product->id !!}</p>
-</div>
-
 <!-- Categoria Field -->
 <div class="form-group">
     {!! Form::label('categoria', 'Categoria:') !!}
@@ -27,16 +21,3 @@
     {!! Form::label('fotografia', 'Fotografia:') !!}
     <p>{!! $product->fotografia !!}</p>
 </div>
-
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $product->created_at !!}</p>
-</div>
-
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $product->updated_at !!}</p>
-</div>
-

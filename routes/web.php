@@ -24,4 +24,4 @@ Route::resource('users', 'UserController');
 
 Route::resource('products', 'ProductController');
 
-Route::resource('clients', 'ClientController');
+Route::resource('clients', 'ClientController', ['except'=>'show']);

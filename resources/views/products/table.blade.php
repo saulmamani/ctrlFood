@@ -2,20 +2,20 @@
     <table class="table" id="products-table">
         <thead>
             <tr>
-                <th>Categoria</th>
-        <th>Nombre</th>
-        <th>Precio</th>
-        <th>Fotografia</th>
-                <th colspan="3">Action</th>
+                <th>Categoría</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Imagen</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         @foreach($products as $product)
             <tr>
                 <td>{!! $product->categoria !!}</td>
-            <td>{!! $product->nombre !!}</td>
-            <td>{!! $product->precio !!}</td>
-            <td>{!! $product->fotografia !!}</td>
+                <td>{!! $product->nombre !!}</td>
+                <td>{!! $product->precio !!}</td>
+                <td>{!! $product->fotografia !!}</td>
                 <td>
                     {!! Form::open(['route' => ['products.destroy', $product->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>

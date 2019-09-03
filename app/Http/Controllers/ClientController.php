@@ -64,26 +64,6 @@ class ClientController extends AppBaseController
     }
 
     /**
-     * Display the specified Client.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show($id)
-    {
-        $client = $this->clientRepository->find($id);
-
-        if (empty($client)) {
-            Flash::error('Client not found');
-
-            return redirect(route('clients.index'));
-        }
-
-        return view('clients.show')->with('client', $client);
-    }
-
-    /**
      * Show the form for editing the specified Client.
      *
      * @param int $id

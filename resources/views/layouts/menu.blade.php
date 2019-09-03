@@ -1,12 +1,12 @@
 <li class="{{ Request::is('users*') ? 'active' : '' }}">
-    <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>Users</span></a>
+    <a href="{!! route('users.index') !!}"><i class="fa fa-user"></i><span>Usuarios</span></a>
 </li>
 
 <li class="{{ Request::is('products*') ? 'active' : '' }}">
-    <a href="{!! route('products.index') !!}"><i class="fa fa-edit"></i><span>Products</span></a>
+    <a href="{!! route('products.index') !!}"><i class="fa fa-list"></i><span>Productos</span></a>
 </li>
 
 <li class="{{ Request::is('clients*') ? 'active' : '' }}">
-    <a href="{!! route('clients.index') !!}"><i class="fa fa-edit"></i><span>Clients</span></a>
+    <a href="{!! route('clients.index') !!}"><i class="fa fa-users"></i><span>Clientes</span></a>
 </li>
 

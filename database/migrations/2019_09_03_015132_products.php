@@ -18,7 +18,7 @@ class Products extends Migration
             $table->enum('categoria', ['Comida', 'Bebida']);
             $table->string('nombre', 200);
             $table->decimal('precio', 10,2);
-            $table->string('url_imagen')->nullable();
+            $table->string('fotografia')->nullable();
             $table->timestamps();
         });
     }

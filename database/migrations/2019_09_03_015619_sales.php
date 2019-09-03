@@ -21,7 +21,7 @@ class Sales extends Migration
             $table->string('nit', 20)->nullable();
             $table->string('razon_social', 100)->nullable();
 
-            $table->bool('estado')->value(true);
+            $table->boolean('estado')->value(true);
 
             //clave foranea
             $table->unsignedInteger('users_id');

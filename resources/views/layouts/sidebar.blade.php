@@ -11,7 +11,7 @@
             </div>
             <div class="pull-left info">
                 @if (Auth::guest())
-                <p>InfyOm</p>
+                <p>ctrl<strong>Food</strong></p>
                 @else
                     <p>{{ Auth::user()->name}}</p>
                 @endif
@@ -23,7 +23,7 @@
         <!-- search form (Optional) -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Search..."/>
+                <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
           <span class="input-group-btn">
             <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
             </button>

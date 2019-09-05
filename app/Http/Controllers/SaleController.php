@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Models\Sale;
+use App\Patrones\Fachada;
 use App\Repositories\SaleRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -29,10 +31,61 @@ class SaleController extends AppBaseController
      */
     public function index(Request $request)
     {
-        $sales = $this->saleRepository->all();
+        $input = $request->all();
+
+        //formateando fechas
+        $dtpInicio = \DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d').' 00:00:00');
+        $dtpFinal = \DateTime::createFromFormat('Y-m-d H:i:s',  date('Y-m-d').' 23:59:59');
+        if(!empty($request->txtDesde) && !empty($request->txtHasta))
+        {
+            $dtpInicio = \DateTime::createFromFormat('d/m/Y H:i:s',date($request->txtDesde).' 00:00:00');
+            $dtpFinal  = \DateTime::createFromFormat('d/m/Y H:i:s',date($request->txtHasta).' 23:59:59');
+        }
+
+
+        if(count($input) > 0 && !is_null($request->txtEstado))
+        {
+            $txtBuscar = $request->txtBuscar;
+            if(is_null($txtBuscar))
+                $txtBuscar= '';
+
+            $sales = Sale::where('estado', $request->txtEstado)
+                ->whereBetween('fecha', [$dtpInicio, $dtpFinal])
+                ->where(function($q) use ($txtBuscar){
+                    $q->where('razon_social', 'like', '%'.$txtBuscar.'%')
+                        ->orwhere('numero_ticket', 'like', '%'.$txtBuscar.'%')
+                        ->orWhere('nit', 'like', '%'.$txtBuscar.'%');
+                })
+                ->orderBy('id', 'desc')->get();
+        }
+        else
+        {
+            $sales = Sale::where('estado', 1)->whereBetween('fecha', [$dtpInicio, $dtpFinal])->orderBy('id', 'desc')->get();
+        }
 
         return view('sales.index')
             ->with('sales', $sales);
+    }
+
+    private function ultimo_numero()
+    {
+        $numero = Sale::all()->max('numero');
+        if(\is_null($numero))
+            return 0;
+        else
+            return $numero;
+    }
+
+    private function ultimo_ticket()
+    {
+        $dtpInicio = \DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d').' 00:00:00');
+        $dtpFinal = \DateTime::createFromFormat('Y-m-d H:i:s',  date('Y-m-d').' 23:59:59');
+
+        $numero = Sale::all()->whereBetween('fecha', [$dtpInicio, $dtpFinal])->max('numero_ticket');
+        if(\is_null($numero))
+            return 0;
+        else
+            return $numero;
     }
 
     /**

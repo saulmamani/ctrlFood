@@ -33,6 +33,8 @@ class Sale extends Model
 
 
     public $fillable = [
+        'numero',
+        'numero_ticket',
         'fecha',
         'concepto',
         'nit',
@@ -84,7 +86,7 @@ class Sale extends Model
      **/
     public function users()
     {
-        return $this->belongsTo(\App\Models\User::class, 'users_id');
+        return $this->belongsTo(\App\User::class, 'users_id');
     }
 
     /**

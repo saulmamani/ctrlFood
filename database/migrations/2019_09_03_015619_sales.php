@@ -15,6 +15,8 @@ class Sales extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('numero');
+            $table->integer('numero_ticket')->comment("numero generado por dia");
             $table->dateTime('fecha');
             $table->text('concepto')->nullable();
 

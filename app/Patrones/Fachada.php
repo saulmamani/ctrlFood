@@ -55,4 +55,12 @@ class Fachada
         $date = new Date($fecha);
         return $date->format('j \d\e F \d\e Y');
     }
+
+    public static function estadoVenta()
+    {
+        return [
+            '1' => 'Activos',
+            '0' => 'Anulados',
+        ];
+    }
 }

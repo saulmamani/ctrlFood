@@ -17,6 +17,8 @@ class SaleRepository extends BaseRepository
      * @var array
      */
     protected $fieldSearchable = [
+        'numero',
+        'numero_ticket',
         'fecha',
         'concepto',
         'nit',

@@ -189,11 +189,8 @@
     {
         var fechaFinal = "{!! \App\Patrones\Fachada::fechaHora() !!}";
         $('.datepicker').datetimepicker({
-            autoclose: true,
-            format: 'dd/mm/yyyy',
-            locale: 'es',
-            //startDate: fechaInicial,
-            endDate: fechaFinal
+             format: 'DD/MM/YYYY',
+              useCurrent: false,
         });
     }
 

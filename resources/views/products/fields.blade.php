@@ -13,7 +13,7 @@
 
     <!-- Precio Field -->
     <div class="form-group col-sm-4">
-        {!! Form::label('precio', 'Precio: *') !!}
+        {!! Form::label('precio', 'Precio: [Bs] *') !!}
         {!! Form::number('precio', null, ['class' => 'form-control', 'required', 'min'=>'1', 'max'=>'200']) !!}
     </div>
 </div>

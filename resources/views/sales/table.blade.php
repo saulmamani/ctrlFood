@@ -1,38 +1,52 @@
 <div class="table-responsive">
-    <table class="table" id="sales-table">
+    <table class="table table-bordered" id="sales-table">
         <thead>
-            <tr>
-                <th>Fecha</th>
-        <th>Concepto</th>
-        <th>Nit</th>
-        <th>Razon Social</th>
-        <th>Estado</th>
-        <th>Users Id</th>
-        <th>Clients Id</th>
-                <th colspan="3">Action</th>
-            </tr>
+        <tr>
+            <th>Número <br> de Ticket</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Total [Bs]</th>
+            <th>Registrado <br>por</th>
+            <th>Estado</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
+        @php
+            $total = 0;
+        @endphp
         @foreach($sales as $sale)
             <tr>
-                <td>{!! $sale->fecha !!}</td>
-            <td>{!! $sale->concepto !!}</td>
-            <td>{!! $sale->nit !!}</td>
-            <td>{!! $sale->razon_social !!}</td>
-            <td>{!! $sale->estado !!}</td>
-            <td>{!! $sale->users_id !!}</td>
-            <td>{!! $sale->clients_id !!}</td>
+                <td><strong>{!! $sale->numero_ticket !!}</strong></td>
+                <td style="width:100px">{!! date('d/m/Y H:i:s', strtotime($sale->fecha)) !!}</td>
                 <td>
-                    {!! Form::open(['route' => ['sales.destroy', $sale->id], 'method' => 'delete']) !!}
+                    {!! $sale->clients->razon_social !!} <br>
+                    <small class="text-muted">Nit: {!! $sale->clients->nit!!}</small>
+                </td>
+                <td class="text-right"><strong>{{ $sale->total }}</strong></td>
+                <td><span class="text-muted">{!! $sale->users->email !!}</span></td>
+                <td>
+                    @if($sale->estado )
+                        <span class="label label-success">Activo</span>
+                    @else
+                        <span class="label label-danger">Anulado</span>
+                    @endif
+                </td>
+                <td style="width: 215px">
                     <div class='btn-group'>
-                        <a href="{!! route('sales.show', [$sale->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-eye-open"></i></a>
-                        <a href="{!! route('sales.edit', [$sale->id]) !!}" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-edit"></i></a>
-                        {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Are you sure?')"]) !!}
+                        <a href="{!! route('sales.show', [$sale->id]) !!}" title="Detalle de la venta" class='btn btn-primary btn-xs'><i class="glyphicon glyphicon-eye-open"></i> Detalle de la venta</a>
+                        <a href="#" target="_blank" title="Imprimir" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-print"></i> Recibo</a>
                     </div>
-                    {!! Form::close() !!}
                 </td>
             </tr>
+            @php
+                $total += $sale->total;
+            @endphp
         @endforeach
         </tbody>
     </table>
+</div>
+
+<div class="text-right">
+    <h4>Total vendido [Bs]: {{ round($total, 2) }}</h4>
 </div>

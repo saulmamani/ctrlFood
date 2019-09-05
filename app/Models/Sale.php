@@ -23,10 +23,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Sale extends Model
 {
-    use SoftDeletes;
-
     public $table = 'sales';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -66,11 +64,20 @@ class Sale extends Model
      * @var array
      */
     public static $rules = [
-        'fecha' => 'required',
-        'estado' => 'required',
         'users_id' => 'required',
         'clients_id' => 'required'
     ];
+
+    //datos calculados
+    public $appends = ['total'];
+    public function getTotalAttribute()
+    {
+        $total = \DB::select('select sum(precio * cantidad) as total from details where sales_id = ? group by sales_id', [$this->id]);
+        if(count($total))
+            return $total[0]->total;
+        else
+            return 0;
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

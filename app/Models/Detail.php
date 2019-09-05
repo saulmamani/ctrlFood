@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property \App\Models\Sale sales
  * @property \App\Models\Product products
- * @property \Illuminate\Database\Eloquent\Collection 
+ * @property \Illuminate\Database\Eloquent\Collection
  * @property float precio
  * @property integer cantidad
  * @property integer sales_id
@@ -20,10 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Detail extends Model
 {
-    use SoftDeletes;
-
     public $table = 'details';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -57,11 +55,14 @@ class Detail extends Model
      * @var array
      */
     public static $rules = [
-        'precio' => 'required',
-        'cantidad' => 'required',
-        'sales_id' => 'required',
-        'products_id' => 'required'
+        'precio' => 'required|number|min:0|max:1000',
+        'cantidad' => 'required|number|min:1|max:100',
     ];
+
+    public function getSubTotalAttribute()
+    {
+        return $this->precio * $this->cantidad;
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -28,6 +28,9 @@
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">
 
+    <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
     @yield('css')
 </head>
 
@@ -164,6 +167,82 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/iCheck/1.0.2/icheck.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.min.js"></script>
+
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+    <script src="{{ asset('js/moment.min.js') }}"></script>
+
+    <script src="{{ asset('js/vue.js') }}"></script>
+    <script src="{{ asset('js/axios.min.js') }}"></script>
+
+<script type="text/javascript">
+    function formarListaDeErrores(json)
+    {
+        var res = 'Errores:\n\n';
+        dataError = json;
+        $.each(dataError, function(i, item) {
+            res += item + "\n";
+        });
+        return res;
+    }
+
+    function cargarDatePicker()
+    {
+        var fechaFinal = "{!! \App\Patrones\Fachada::fechaHora() !!}";
+        $('.datepicker').datetimepicker({
+            autoclose: true,
+            format: 'dd/mm/yyyy',
+            locale: 'es',
+            //startDate: fechaInicial,
+            endDate: fechaFinal
+        });
+    }
+
+    function preVisualizarImagen(input, idImagenDestino)
+    {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $(idImagenDestino).attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function validarTamanoArchivo()
+    {
+        $("input:file").change(function(){
+            var sizeMax = 2000;
+            var sizeFile = this.files[0].size;
+            var sizeKB = parseInt(sizeFile / 1024);
+
+            if(sizeKB > sizeMax)
+            {
+                alert("Error!!!\nEl tamaño del archivo supera el limite establecido\nSolo puede subir archivos de un máximo de 2 MB");
+                $(this).val('');
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        cargarDatePicker();
+
+        //previsualizacion de las fotos
+        $("#foto_input").change(function(){
+            preVisualizarImagen(this, '#img_destino');
+        });
+
+        //tamano el archivo
+        validarTamanoArchivo();
+
+        //selected 2
+        $(".select2").select2({
+            escapeMarkup: function(markup) {
+                return markup;
+            },
+            theme:"bootstrap"
+        });
+    });
+</script>
 
     @yield('scripts')
 </body>

@@ -45,6 +45,18 @@ class ProductController extends AppBaseController
         return view('products.create');
     }
 
+    private function subirArchivo($file)
+    {
+        if(is_null($file))
+        {
+            Flash::error('Elija imagenes validas. (*.jpg | *.jpeg | *.png)');
+            return redirect(route('products.index'));
+        }
+        $nombreArchivo = time().'.'.$file->getClientOriginalExtension();
+        $file->move(public_path('images_products'), $nombreArchivo);
+        return $nombreArchivo;
+    }
+
     /**
      * Store a newly created Product in storage.
      *
@@ -55,6 +67,11 @@ class ProductController extends AppBaseController
     public function store(CreateProductRequest $request)
     {
         $input = $request->all();
+
+        if(isset($input['foto_input']))
+            $input['fotografia'] = $this->subirArchivo($input['foto_input']);
+        else
+            $input['fotografia'] = 'imagen_base.png';
 
         $product = $this->productRepository->create($input);
 
@@ -121,7 +138,11 @@ class ProductController extends AppBaseController
             return redirect(route('products.index'));
         }
 
-        $product = $this->productRepository->update($request->all(), $id);
+        $input = $request->all();
+        if(isset($input['foto_input']))
+            $input['fotografia'] = $this->subirArchivo($input['foto_input']);
+
+        $product = $this->productRepository->update($input, $id);
 
         Flash::success('Product updated successfully.');
 

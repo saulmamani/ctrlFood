@@ -27,3 +27,8 @@ Route::put('users.update_password/{id}',  ['as'=>'users.update_password', 'uses'
 Route::resource('products', 'ProductController');
 
 Route::resource('clients', 'ClientController', ['except'=>'show']);
+
+
+Route::resource('sales', 'SaleController');
+
+Route::resource('details', 'DetailController');

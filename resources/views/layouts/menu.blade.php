@@ -12,3 +12,11 @@
     <a href="{!! route('clients.index') !!}"><i class="fa fa-users"></i><span>Clientes</span></a>
 </li>
 
+<li class="{{ Request::is('sales*') ? 'active' : '' }}">
+    <a href="{!! route('sales.index') !!}"><i class="fa fa-edit"></i><span>Sales</span></a>
+</li>
+
+<li class="{{ Request::is('details*') ? 'active' : '' }}">
+    <a href="{!! route('details.index') !!}"><i class="fa fa-edit"></i><span>Details</span></a>
+</li>
+

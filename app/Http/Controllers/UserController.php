@@ -45,6 +45,17 @@ class UserController extends AppBaseController
         return view('users.create');
     }
 
+    private function subirArchivo($file)
+    {
+        if (is_null($file)) {
+            Flash::error('Elija imagenes validas. (*.jpg | *.jpeg | *.png)');
+            return redirect(route('users.show'));
+        }
+        $nombreArchivo = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images_user'), $nombreArchivo);
+        return $nombreArchivo;
+    }
+
     /**
      * Store a newly created User in storage.
      *
@@ -55,6 +66,13 @@ class UserController extends AppBaseController
     public function store(CreateUserRequest $request)
     {
         $input = $request->all();
+
+        $input['password'] = \Hash::make($request->password);
+        $input['alta'] = true;
+        if (isset($input['foto_input']))
+            $input['fotografia'] = $this->subirArchivo($input['foto_input']);
+        else
+            $input['fotografia'] = 'foto_base.png';
 
         $user = $this->userRepository->create($input);
 
@@ -121,7 +139,11 @@ class UserController extends AppBaseController
             return redirect(route('users.index'));
         }
 
-        $user = $this->userRepository->update($request->all(), $id);
+        $input = $request->all();
+        $input['password'] = \Hash::make($request->password);
+        if (isset($input['foto_input']))
+            $input['fotografia'] = $this->subirArchivo($input['foto_input']);
+        $user = $this->userRepository->update($input, $id);
 
         Flash::success('User updated successfully.');
 
@@ -133,9 +155,9 @@ class UserController extends AppBaseController
      *
      * @param int $id
      *
+     * @return Response
      * @throws \Exception
      *
-     * @return Response
      */
     public function destroy($id)
     {
@@ -152,5 +174,40 @@ class UserController extends AppBaseController
         Flash::success('User deleted successfully.');
 
         return redirect(route('users.index'));
+    }
+
+    public function updateFoto($id, Request $request)
+    {
+        $user = $this->userRepository->find($id);
+        $input = $request->all();
+        if (isset($input['foto_input']))
+            $input['fotografia'] = $this->subirArchivo($input['foto_input']);
+        $user = $this->userRepository->update($input, $id);
+
+        Flash::success('Actualizado correctamente!.');
+
+        return redirect()->route('users.show', array('id' => $user->id));
+    }
+
+    public function updatePassword($id, Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:5|max:20|confirmed',
+        ]);
+
+        $user = $this->userRepository->find($id);
+
+        $input = $request->all();
+        $input['password'] = \Hash::make($request->password);
+
+        //verificando si la contrasena actual es la correcta
+        if (!\Hash::check($request->old_password, \Auth::user()->password)) {
+            Flash::error('El password actual no es la correcta!.');
+            return redirect()->route('users.show', array('id' => $user->id));
+        }
+
+        $user = $this->userRepository->update($input, $id);
+        Flash::success('Actualizado correctamente!.');
+        return redirect()->route('users.show', array('id' => $user->id));
     }
 }

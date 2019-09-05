@@ -1,60 +1,63 @@
-<!-- Id Field -->
-<div class="form-group">
-    {!! Form::label('id', 'Id:') !!}
-    <p>{!! $user->id !!}</p>
-</div>
+<div class="row">
 
-<!-- Name Field -->
-<div class="form-group">
-    {!! Form::label('name', 'Name:') !!}
-    <p>{!! $user->name !!}</p>
-</div>
+    <div class="col-md-3">
 
-<!-- Email Field -->
-<div class="form-group">
-    {!! Form::label('email', 'Email:') !!}
-    <p>{!! $user->email !!}</p>
-</div>
+        {!! Form::model($user, ['route' => ['users.update_foto', $user->id], 'method' => 'put', 'files'=>true]) !!}
+        <!-- Foto Field -->
+        <div class="thumbnail">
+            @if(isset($user) && isset($user->fotografia))
+                <img id="img_destino" src="{{ asset('/images_user/'.$user->fotografia) }}" alt="foto">
+            @else
+                <img id="img_destino" src="{{ asset('images_user/foto_base.png') }}" alt="foto">
+            @endif
 
-<!-- Email Verified At Field -->
-<div class="form-group">
-    {!! Form::label('email_verified_at', 'Email Verified At:') !!}
-    <p>{!! $user->email_verified_at !!}</p>
-</div>
+            <div class="caption text-center">
+                <div class="foto_boton file btn btn-lg btn-primary">
+                    <i class="glyphicon glyphicon-paperclip"></i> Cargar Fotografía
+                    <input id="foto_input" class="foto_input" type="file" name="foto_input" accept="image/*" />
+                </div>
+            </div>
+        </div>
 
-<!-- Password Field -->
-<div class="form-group">
-    {!! Form::label('password', 'Password:') !!}
-    <p>{!! $user->password !!}</p>
-</div>
+        <!-- Submit Field -->
+        <div class="form-group col-md-12 text-center">
+            {!! Form::submit('Cambiar Foto de perfil', ['class' => 'btn btn-success']) !!}
+        </div>
+        {!! Form::close() !!}
 
-<!-- Rol Field -->
-<div class="form-group">
-    {!! Form::label('rol', 'Rol:') !!}
-    <p>{!! $user->rol !!}</p>
-</div>
+    </div>
 
-<!-- Fotografia Field -->
-<div class="form-group">
-    {!! Form::label('fotografia', 'Fotografia:') !!}
-    <p>{!! $user->fotografia !!}</p>
-</div>
+    <div class="col-md-4">
+        <h4>Mi Perfil</h4>
+        <hr>
 
-<!-- Remember Token Field -->
-<div class="form-group">
-    {!! Form::label('remember_token', 'Remember Token:') !!}
-    <p>{!! $user->remember_token !!}</p>
-</div>
+        <!-- Name Field -->
+        <div class="form-group">
+            {!! Form::label('name', 'Nombre Completo:') !!}
+            <p>{!! $user->name !!}</p>
+        </div>
 
-<!-- Created At Field -->
-<div class="form-group">
-    {!! Form::label('created_at', 'Created At:') !!}
-    <p>{!! $user->created_at !!}</p>
-</div>
+        <!-- Email Field -->
+        <div class="form-group">
+            {!! Form::label('email', 'Cuenta:') !!}
+            <p>{!! $user->email !!}</p>
+        </div>
 
-<!-- Updated At Field -->
-<div class="form-group">
-    {!! Form::label('updated_at', 'Updated At:') !!}
-    <p>{!! $user->updated_at !!}</p>
-</div>
+        <!-- Rol Field -->
+        <div class="form-group">
+            {!! Form::label('rol', 'Rol:') !!}
+            <p>{!! $user->rol !!}</p>
+        </div>
+    </div>
 
+    <div class="col-md-5">
+        <h4>Cambiar Contraseña</h4>
+        <hr>
+
+        @include('adminlte-templates::common.errors')
+
+        @include('users.password_fields')
+
+    </div>
+
+</div>

@@ -6,7 +6,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="http://infyom.com/images/logo/blue_logo_150x150.jpg" class="img-circle"
+                <img src="{{ asset('images_user/' . Auth::user()->fotografia) }}" class="img-circle"
                      alt="User Image"/>
             </div>
             <div class="pull-left info">

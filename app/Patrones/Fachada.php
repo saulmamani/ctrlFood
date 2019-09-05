@@ -14,8 +14,8 @@ class Fachada
     public static function roles()
     {
         return array(
-            Rol::Administrador => Rol::Administrador . ' - Tiene acceso completo al sistema',
             Rol::Vendedor => Rol::Vendedor . ' - Ejecutivo de ventas',
+            Rol::Administrador => Rol::Administrador . ' - Tiene acceso completo al sistema',
         );
     }
 

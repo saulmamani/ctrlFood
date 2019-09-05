@@ -1,6 +1,8 @@
-<li class="{{ Request::is('users*') ? 'active' : '' }}">
-    <a href="{!! route('users.index') !!}"><i class="fa fa-user"></i><span>Usuarios</span></a>
-</li>
+@if(\App\Patrones\Permiso::esAdministrador())
+    <li class="{{ Request::is('users*') ? 'active' : '' }}">
+        <a href="{!! route('users.index') !!}"><i class="fa fa-user"></i><span>Usuarios</span></a>
+    </li>
+@endif
 
 <li class="{{ Request::is('products*') ? 'active' : '' }}">
     <a href="{!! route('products.index') !!}"><i class="fa fa-list"></i><span>Productos</span></a>

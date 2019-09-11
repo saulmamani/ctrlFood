@@ -35,6 +35,11 @@ class ProductController extends AppBaseController
             ->with('products', $products);
     }
 
+    public function product_list(){
+        $products = $this->productRepository->all();
+        return $products;
+    }
+
     /**
      * Show the form for creating a new Product.
      *

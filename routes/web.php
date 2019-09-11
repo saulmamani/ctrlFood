@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\ProductController;
+
 Route::get('/', function () {
     return redirect('home');
 });
@@ -27,6 +29,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::put('users.update_password/{id}',  ['as'=>'users.update_password', 'uses'=>'UserController@updatePassword']);
 
     Route::resource('products', 'ProductController');
+    Route::get('product_list', 'ProductController@product_list');
 
     Route::resource('clients', 'ClientController', ['except'=>'show']);
 

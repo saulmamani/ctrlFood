@@ -15,7 +15,7 @@
                         <h3 class="box-title"><i class="glyphicon glyphicon-list"></i> Productos</h3>
                     </div>
                     <div class="box-body">
-{{--                        @include('venta_repuestos.lista_repuestos')--}}
+                        @include('sales.product_list')
                     </div>
                 </div>
             </div>
@@ -30,15 +30,13 @@
                     <div class="box-body">
                         <div class="row">
                             {!! Form::open(['route' => 'sales.store', 'id'=>'frmVenta', '@submit.prevent'=>'finalizarVenta()']) !!}
-                            @include('sales.fields')
+                                @include('sales.fields')
                             {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        @include('sales.nuevo_cliente')
     </div>
 @endsection
 
@@ -47,22 +45,21 @@
         appVenta = new Vue({
             el: "#appVenta",
             data:{
-                repuestos: [],
+                products: [],
                 clientes: [],
                 carrito: [],
                 cliente_seleccionado: [],
                 txtBuscar: '',
-                esClienteNatural: true
             },
             mounted() {
-                this.getRepuestos();
+                this.getProductos();
                 this.getClientes();
             },
             methods: {
-                getRepuestos(){
-                    let url = "{{ url('repuestos_listar') }}";
+                getProductos(){
+                    let url = "{{ url('product_list') }}";
                     axios.get(url).then(res => {
-                        this.repuestos = res.data;
+                        this.products = res.data;
                     })
                 },
                 getClientes(){
@@ -72,20 +69,15 @@
                         this.clientes = res.data;
                     })
                 },
-                agregarCarrito(repuesto, index)
+                agregarCarrito(product, index)
                 {
-                    if(parseInt(repuesto.stock) > 0)
-                    {
-                        //buscando elemento en el carrito
-                        if(this.buscarItemCarrito(repuesto).length > 0)
-                            toastr.error('ya añadió el repuesto al carrito con anterioridad');
-                        else
-                        {
-                            this.carrito.push({...repuesto,...{'cantidad': 1}});
-                        }
-                    }
+                    //buscando elemento en el carrito
+                    if(this.buscarItemCarrito(product).length > 0)
+                        toastr.error('ya añadió el producto al carrito con anterioridad');
                     else
-                        toastr.error('No hay cantidad disponible para la venta');
+                    {
+                        this.carrito.push({...product,...{'cantidad': 1}});
+                    }
                 },
                 buscarItemCarrito(row)
                 {
@@ -95,10 +87,10 @@
                 },
                 controlarStock(row)
                 {
-                    if(row.cantidad > row.stock || row.cantidad <= 0)
+                    if(row.cantidad <= 0)
                     {
-                        toastr.error('No puede registrar cantidades menores a cero o mayores al stock disponible');
-                        row.cantidad = row.cantidad <= 0 ? 1 : row.cantidad > row.stock ? row.stock : row.cantidad;
+                        toastr.error('No puede registrar cantidades menores a cero');
+                        row.cantidad = 1;
                     }
                 },
                 eliminarItemCarrito(row, index)
@@ -106,7 +98,7 @@
                     if(confirm('Seguro que quiere eliminar el registro?'))
                     {
                         this.carrito.splice(index, 1);
-                        toastr.success('El repuesto se ha eliminicado del carrito de ventas y se ha restablecido en la lista de repuestos');
+                        toastr.success('El producto se ha eliminicado del carrito de ventas');
                     }
                 },
                 guardarCliente()
@@ -187,8 +179,8 @@
                 },
             },
             computed: {
-                buscarRepuestos(){
-                    return this.repuestos.filter(item => {
+                buscarProductos(){
+                    return this.products.filter(item => {
                         return item.nombre.toLowerCase().includes(this.txtBuscar.toLowerCase());
                     })
                 },

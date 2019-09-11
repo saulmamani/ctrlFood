@@ -28,11 +28,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public static $rules = [
-        'email' => 'required|unique:users|min:5|max:100',
-        'name' => 'required|min:3|max:50',
-        'rol' => 'required',
-    ];
+    public static function rules($isEdit)
+    {
+        $email = $isEdit ? 'required|min:5|max:100' : 'required|unique:users|min:5|max:100';
+        return $rules = [
+            'email' => $email,
+            'name' => 'required|min:3|max:50',
+            'rol' => 'required',
+        ];
+    }
+
 
     /**
      * The attributes that should be cast to native types.

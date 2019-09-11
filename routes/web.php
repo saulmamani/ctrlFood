@@ -32,6 +32,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('product_list', 'ProductController@product_list');
 
     Route::resource('clients', 'ClientController', ['except'=>'show']);
+    Route::get('clients_list/{nit}', 'ClientController@clients_list');
 
     Route::resource('sales', 'SaleController');
 

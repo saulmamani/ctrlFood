@@ -53,7 +53,6 @@
             },
             mounted() {
                 this.getProductos();
-                this.getClientes();
             },
             methods: {
                 getProductos(){
@@ -62,12 +61,21 @@
                         this.products = res.data;
                     })
                 },
-                getClientes(){
+                getClientes(e){
+                    let nit = e.target.value;
                     this.clientes = null;
-                    let url = "{{ url('clientes_listar') }}";
+                    let url = "{{ url('clients_list/pnit') }}".replace('pnit', nit);
                     axios.get(url).then(res => {
                         this.clientes = res.data;
-                    })
+
+                        if(this.clientes.length <= 0) {
+                            $("#razon_social").val("");
+                        }
+                        else {
+                            console.log(this.clientes);
+                            $("#razon_social").val(this.clientes.razon_social);
+                        }
+                    });
                 },
                 agregarCarrito(product, index)
                 {

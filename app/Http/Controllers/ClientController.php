@@ -35,6 +35,12 @@ class ClientController extends AppBaseController
             ->with('clients', $clients);
     }
 
+    public function clients_list($nit)
+    {
+        $client = $this->clientRepository->all()->where('nit', $nit)->first();
+        return $client;
+    }
+
     /**
      * Show the form for creating a new Client.
      *

@@ -31,6 +31,12 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style type="text/css">
+        .sombra{
+            border: 1px solid #D0D0D0; box-shadow: 0 3px 12px rgba(0, 0, 0, .09); border-radius: 7px;
+        }
+    </style>
+
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -39,8 +45,8 @@
     </div>
 
     <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+    <div class="login-box-body sombra">
+        <p class="login-box-msg">Sistema para la venta de comidas y bebidas <br> v0.9</p>
 
         <form method="post" action="{{ url('/login') }}">
             {!! csrf_field() !!}
@@ -66,23 +72,13 @@
 
             </div>
             <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox" name="remember"> Remember Me
-                        </label>
-                    </div>
-                </div>
                 <!-- /.col -->
-                <div class="col-xs-4">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Ingresar al sistema</button>
                 </div>
                 <!-- /.col -->
             </div>
         </form>
-
-        <a href="{{ url('/password/reset') }}">I forgot my password</a><br>
-        <a href="{{ url('/register') }}" class="text-center">Register a new membership</a>
 
     </div>
     <!-- /.login-box-body -->

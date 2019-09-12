@@ -177,7 +177,7 @@ class SaleController extends AppBaseController
         $sale->estado = ! $sale->estado;
         $sale->save();
 
-        if($sale->alta)
+        if($sale->estado)
             Flash::success('Venta restablecida correctamente');
         else
             Flash::success('Venta anulada correctamente');

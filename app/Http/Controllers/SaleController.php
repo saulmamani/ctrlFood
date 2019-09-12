@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateSaleRequest;
 use App\Http\Requests\UpdateSaleRequest;
+use App\Models\Client;
 use App\Models\Sale;
 use App\Patrones\Fachada;
 use App\Repositories\SaleRepository;
@@ -107,13 +108,31 @@ class SaleController extends AppBaseController
      */
     public function store(CreateSaleRequest $request)
     {
-        $input = $request->all();
+        try
+        {
+            $input = $request->all();
+            $input['fecha'] =  Fachada::fechaHoraControlador();
+            $input['numero'] = $this->ultimo_numero() + 1;
+            $input['numero_ticket'] = $this->ultimo_ticket() + 1;
+            $input['estado'] = true;
+            $input['nit'] = trim($request->nit);
+            $input['users_id'] = \Auth::user()->id;
 
-        $sale = $this->saleRepository->create($input);
+            //si es cliente nuevo
+            if(trim($request->clients_id) === "")
+            {
+                $input['clients_id'] = $this->save_cliente($request);
+            }
 
-        Flash::success('Sale saved successfully.');
+            $sale = $this->saleRepository->create($input);
 
-        return redirect(route('sales.index'));
+            return ['res'=>'Ok', 'sale'=>$sale];
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => "Ha ocurrido un error!",
+                'e' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -137,51 +156,6 @@ class SaleController extends AppBaseController
     }
 
     /**
-     * Show the form for editing the specified Sale.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $sale = $this->saleRepository->find($id);
-
-        if (empty($sale)) {
-            Flash::error('Sale not found');
-
-            return redirect(route('sales.index'));
-        }
-
-        return view('sales.edit')->with('sale', $sale);
-    }
-
-    /**
-     * Update the specified Sale in storage.
-     *
-     * @param int $id
-     * @param UpdateSaleRequest $request
-     *
-     * @return Response
-     */
-    public function update($id, UpdateSaleRequest $request)
-    {
-        $sale = $this->saleRepository->find($id);
-
-        if (empty($sale)) {
-            Flash::error('Sale not found');
-
-            return redirect(route('sales.index'));
-        }
-
-        $sale = $this->saleRepository->update($request->all(), $id);
-
-        Flash::success('Sale updated successfully.');
-
-        return redirect(route('sales.index'));
-    }
-
-    /**
      * Remove the specified Sale from storage.
      *
      * @param int $id
@@ -200,10 +174,32 @@ class SaleController extends AppBaseController
             return redirect(route('sales.index'));
         }
 
-        $this->saleRepository->delete($id);
+        $sale->estado = ! $sale->estado;
+        $sale->save();
 
-        Flash::success('Sale deleted successfully.');
+        if($sale->alta)
+            Flash::success('Venta restablecida correctamente');
+        else
+            Flash::success('Venta anulada correctamente');
 
         return redirect(route('sales.index'));
+    }
+
+    public function sale_delete($id)
+    {
+        $sale = $this->saleRepository->find($id);
+        $this->saleRepository->delete($id);
+        return "Ok";
+    }
+
+    /**
+     * @param CreateSaleRequest $request
+     */
+    public function save_cliente(CreateSaleRequest $request)
+    {
+        $input['nit'] = $request->nit;
+        $input['razon_social'] = $request->razon_social;
+        $client = Client::create($input);
+        return $client->id;
     }
 }

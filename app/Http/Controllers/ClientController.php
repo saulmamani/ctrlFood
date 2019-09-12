@@ -37,7 +37,7 @@ class ClientController extends AppBaseController
 
     public function clients_list($nit)
     {
-        $client = $this->clientRepository->all()->where('nit', $nit)->first();
+        $client = $this->clientRepository->all()->whereInStrict('nit', (string)$nit)->first();
         return $client;
     }
 

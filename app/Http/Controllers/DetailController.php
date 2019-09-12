@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateDetailRequest;
 use App\Http\Requests\UpdateDetailRequest;
+use App\Models\Detail;
+use App\Models\Sale;
 use App\Repositories\DetailRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
@@ -21,31 +23,6 @@ class DetailController extends AppBaseController
     }
 
     /**
-     * Display a listing of the Detail.
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function index(Request $request)
-    {
-        $details = $this->detailRepository->all();
-
-        return view('details.index')
-            ->with('details', $details);
-    }
-
-    /**
-     * Show the form for creating a new Detail.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        return view('details.create');
-    }
-
-    /**
      * Store a newly created Detail in storage.
      *
      * @param CreateDetailRequest $request
@@ -56,101 +33,38 @@ class DetailController extends AppBaseController
     {
         $input = $request->all();
 
-        $detail = $this->detailRepository->create($input);
+        try
+        {
+            foreach ($input['carrito'] as $key => $row) {
+                $detalle = new Detail();
+                $detalle->precio = $row['precio'];
+                $detalle->cantidad = $row['cantidad'];
+                $detalle->products_id = $row['id'];
+                $detalle->sales_id= $input['sale_id'];
+                $detalle->save();
+            }
+            return "Ok";
+        }
+        catch(\Exception $e)
+        {
+            $this->eliminar_venta($input['sale_id']);
 
-        Flash::success('Detail saved successfully.');
+            return response()->json(["error" => "Ha ocurrido un error!, revise que las cantidades no revasen el stock permitido",
+                'e' => $e->getMessage()]);
+        }
+        catch(\FatalThrowableError $e)
+        {
+            $this->eliminar_venta($input['sale_id']);
 
-        return redirect(route('details.index'));
+            return response()->json(["error" => "Ha ocurrido un error!, intentelo de nuevo mas adelante",
+                'e' => $e->getMessage()]);
+        }
     }
 
-    /**
-     * Display the specified Detail.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function show($id)
+    public function eliminar_venta($id)
     {
-        $detail = $this->detailRepository->find($id);
-
-        if (empty($detail)) {
-            Flash::error('Detail not found');
-
-            return redirect(route('details.index'));
-        }
-
-        return view('details.show')->with('detail', $detail);
-    }
-
-    /**
-     * Show the form for editing the specified Detail.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
-    public function edit($id)
-    {
-        $detail = $this->detailRepository->find($id);
-
-        if (empty($detail)) {
-            Flash::error('Detail not found');
-
-            return redirect(route('details.index'));
-        }
-
-        return view('details.edit')->with('detail', $detail);
-    }
-
-    /**
-     * Update the specified Detail in storage.
-     *
-     * @param int $id
-     * @param UpdateDetailRequest $request
-     *
-     * @return Response
-     */
-    public function update($id, UpdateDetailRequest $request)
-    {
-        $detail = $this->detailRepository->find($id);
-
-        if (empty($detail)) {
-            Flash::error('Detail not found');
-
-            return redirect(route('details.index'));
-        }
-
-        $detail = $this->detailRepository->update($request->all(), $id);
-
-        Flash::success('Detail updated successfully.');
-
-        return redirect(route('details.index'));
-    }
-
-    /**
-     * Remove the specified Detail from storage.
-     *
-     * @param int $id
-     *
-     * @throws \Exception
-     *
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        $detail = $this->detailRepository->find($id);
-
-        if (empty($detail)) {
-            Flash::error('Detail not found');
-
-            return redirect(route('details.index'));
-        }
-
-        $this->detailRepository->delete($id);
-
-        Flash::success('Detail deleted successfully.');
-
-        return redirect(route('details.index'));
+        $sale = Sale::find($id);
+        if(isset($sale))
+            $sale->delete();
     }
 }

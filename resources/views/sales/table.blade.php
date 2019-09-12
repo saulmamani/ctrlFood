@@ -33,10 +33,20 @@
                     @endif
                 </td>
                 <td style="width: 215px">
+                    {!! Form::open(['route' => ['sales.destroy', $sale->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
-                        <a href="{!! route('sales.show', [$sale->id]) !!}" title="Detalle de la venta" class='btn btn-primary btn-xs'><i class="glyphicon glyphicon-eye-open"></i> Detalle de la venta</a>
-                        <a href="#" target="_blank" title="Imprimir" class='btn btn-default btn-xs'><i class="glyphicon glyphicon-print"></i> Recibo</a>
+                        <a href="{!! route('sales.show', [$sale->id]) !!}" title="Detalle de la venta"
+                           class='btn btn-primary btn-xs'><i class="glyphicon glyphicon-eye-open"></i> Detalle de la
+                            venta</a>
+
+                        @if ($sale->estado)
+                            {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Dar de baja']) !!}
+                        @else
+                            {!! Form::button('<i class="glyphicon glyphicon-arrow-up"></i>', ['type' => 'submit', 'class' => 'btn btn-success btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Restablecer']) !!}
+                        @endif
+
                     </div>
+                    {!! Form::close() !!}
                 </td>
             </tr>
             @php

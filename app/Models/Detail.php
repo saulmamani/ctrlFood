@@ -55,8 +55,8 @@ class Detail extends Model
      * @var array
      */
     public static $rules = [
-        'precio' => 'required|number|min:0|max:1000',
-        'cantidad' => 'required|number|min:1|max:100',
+//        'precio' => 'required|number|min:0|max:1000',
+//        'cantidad' => 'required|number|min:1|max:100',
     ];
 
     public function getSubTotalAttribute()

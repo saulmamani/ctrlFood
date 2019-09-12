@@ -1,13 +1,13 @@
 <!-- Nit Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('nit', 'Nit: *') !!}
-    {!! Form::text('nit', null, ['class' => 'form-control', 'required','maxlength' => '15', '@keypress.enter'=>'getClientes($event)', '@blur'=>'getClientes($event)']) !!}
+    {!! Form::number('nit', null, ['class' => 'form-control', 'required','maxlength' => '15', '@keypress.enter'=>'getClientes($event)', '@blur'=>'getClientes($event)']) !!}
 </div>
 
 <!-- Razon Social Field -->
 <div class="form-group col-sm-12">
     {!! Form::label('razon_social', 'Razón Social: *') !!}
-    {!! Form::text('razon_social', null, ['class' => 'form-control', 'maxlength' => '50', 'required', 'id'=>'razon_social']) !!}
+    {!! Form::text('razon_social', null, ['class' => 'form-control', 'maxlength' => '50', 'required', 'id'=>'razon_social', 'autocomplete' => 'off']) !!}
 </div>
 
 <!-- Concepto Field -->
@@ -17,9 +17,7 @@
     <hr>
 </div>
 
-{!! Form::hidden('nit', null, ['class' => 'form-control', 'id'=>'nit_ci_cliente']) !!}
-{!! Form::hidden('razon_social', null, ['class' => 'form-control', 'id'=>'razon_social_cliente']) !!}
-{!! Form::hidden('cliente_id', null, ['class' => 'form-control', 'id'=>'cliente_id']) !!}
+{!! Form::hidden('clients_id', null, ['class' => 'form-control', 'id'=>'clients_id']) !!}
 
 @include('sales.carrito')
 

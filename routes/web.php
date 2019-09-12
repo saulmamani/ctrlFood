@@ -12,6 +12,7 @@
 */
 
 use App\Http\Controllers\ProductController;
+use App\Models\Detail;
 
 Route::get('/', function () {
     return redirect('home');
@@ -34,8 +35,13 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('clients', 'ClientController', ['except'=>'show']);
     Route::get('clients_list/{nit}', 'ClientController@clients_list');
 
-    Route::resource('sales', 'SaleController');
+    Route::resource('sales', 'SaleController', ['except' => ['edit', 'update']]);
+    Route::delete('sale_delete/{id}', 'SaleController@sale_delete');
 
-    Route::resource('details', 'DetailController');
+    Route::resource('details', 'DetailController', ['only' => 'store']);
 
+});
+
+Route::get('prueba', function(){
+   return Detail::all();
 });

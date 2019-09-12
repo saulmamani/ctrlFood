@@ -66,8 +66,7 @@ class Sale extends Model
      * @var array
      */
     public static $rules = [
-        'users_id' => 'required',
-        'clients_id' => 'required'
+//        'clients_id' => 'required'
     ];
 
     //datos calculados
@@ -100,7 +99,7 @@ class Sale extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function sales()
+    public function details()
     {
         return $this->hasMany(\App\Models\Detail::class, 'sales_id');
     }

@@ -52,6 +52,12 @@
     <p>{!! $sale->created_at !!}</p>
 </div>
 
+<div>
+    <pre>
+        {{ $sale->details }}
+    </pre>
+</div>
+
 <!-- Updated At Field -->
 <div class="form-group">
     {!! Form::label('updated_at', 'Updated At:') !!}

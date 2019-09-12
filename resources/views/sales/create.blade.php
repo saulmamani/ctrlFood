@@ -48,7 +48,6 @@
                 products: [],
                 clientes: [],
                 carrito: [],
-                cliente_seleccionado: [],
                 txtBuscar: '',
             },
             mounted() {
@@ -63,17 +62,23 @@
                 },
                 getClientes(e){
                     let nit = e.target.value;
-                    this.clientes = null;
+                    this.clientes = [];
+                    if($.trim(nit) === "")
+                        return;
+
                     let url = "{{ url('clients_list/pnit') }}".replace('pnit', nit);
                     axios.get(url).then(res => {
                         this.clientes = res.data;
 
-                        if(this.clientes.length <= 0) {
+                        if(this.clientes.length <= 0 || this.clientes.nit == 0) {
                             $("#razon_social").val("");
+                            $("#clients_id").val("");
+                            $("#razon_social").removeAttr('readonly');
                         }
                         else {
-                            console.log(this.clientes);
-                            $("#razon_social").val(this.clientes.razon_social);
+                                $("#razon_social").val(this.clientes.razon_social);
+                                $("#razon_social").attr('readonly', 'readonly');
+                                $("#clients_id").val(this.clientes.id);
                         }
                     });
                 },
@@ -109,38 +114,18 @@
                         toastr.success('El producto se ha eliminicado del carrito de ventas');
                     }
                 },
-                guardarCliente()
-                {
-                    let form = document.getElementById('frmCliente');
-                    let datos =  new FormData(form);
-                    axios({
-                        method: form.getAttribute('method'),
-                        url: form.getAttribute('action'),
-                        data: datos,
-                    }).then(response => {
-                        if(response.data === "Ok")
-                        {
-                            form.reset();
-                            $("#modalCliente").modal('hide');
-                            toastr.success("Registrado correctamente correctamente!");
-
-                            $('#cmbClientes').val(null).trigger('change');
-                            this.getClientes();
-                        }
-                        else
-                        {
-                            alert(formarListaDeErrores(response.data));
-                        }
-                    }).catch(error => {
-                        alert(formarListaDeErrores(error.response.data.errors));
-                    });
-                },
                 finalizarVenta()
                 {
+                    if($.trim($('#nit').val()) === "")
+                    {
+                        toastr.error("escriba el nit del cliente");
+                        return;
+                    }
+
                     if(confirm("Seguro que quire finalizar la venta?"))
                     {
                         if(this.carrito.length <= 0)
-                            toastr.error('Error! Seleccione por lo menos repuesto para la venta');
+                            toastr.error('Error! Seleccione por lo menos un producto para la venta');
                         else
                         {
                             let form = document.getElementById('frmVenta');
@@ -152,7 +137,7 @@
                             }).then(response => {
                                 if(response.data.res === "Ok")
                                 {
-                                    this.guardar_detalle(response.data.venta);
+                                    this.guardar_detalle(response.data.sale);
                                 }
                                 else
                                 {
@@ -164,15 +149,15 @@
                         }
                     }
                 },
-                guardar_detalle(venta)
+                guardar_detalle(sale)
                 {
-                    let url = "{{ url('detalleVentas') }}";
-                    let url_p = "{{ url('ventaRepuestos/pid') }}".replace('pid', venta.id);
-                    axios.post(url, {venta_id:venta.id, carrito:this.carrito}).then(response => {
+                    let url = "{{ url('details') }}";
+                    let url_p = "{{ url('sales/pid') }}".replace('pid', sale.id);
+                    axios.post(url, {sale_id:sale.id, carrito:this.carrito}).then(response => {
                         if(response.data === "Ok")
                         {
                             toastr.success('Venta registrada correctamente');
-                            this.carrito = null;
+                            this.carrito = [];
                             window.location.href = url_p;
                         }
                         else
@@ -180,7 +165,7 @@
                             alert(formarListaDeErrores(response.data));
                         }
                     }).catch(error => {
-                        let url = "{{ url('ventaRepuestos_eliminar/pid') }}".replace('pid', venta.id);
+                        let url = "{{ url('sale_delete/pid') }}".replace('pid', sale.id);
                         axios.delete(url);
                         alert(formarListaDeErrores(error.response.data));
                     });
@@ -200,14 +185,6 @@
                     return total;
                 }
             },
-        });
-
-        $('#cmbClientes').on('select2:select', function (e) {
-            var data = e.params.data;
-            let row = appVenta.clientes[data.id];
-            $("#nit_ci_cliente").val(row.nit_ci);
-            $("#razon_social_cliente").val(row.razon_social);
-            $("#cliente_id").val(row.id);
         });
 
         function askConfirmation (evt) {

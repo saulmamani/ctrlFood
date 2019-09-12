@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Patrones\Permiso;
 use App\Repositories\UserRepository;
 use App\Http\Controllers\AppBaseController;
 use Illuminate\Http\Request;
 use Flash;
+use Illuminate\Support\Facades\Auth;
 use Response;
 
 class UserController extends AppBaseController
@@ -29,6 +31,9 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
+        if(!Permiso::esAdministrador())
+            abort(401);
+
         $users = $this->userRepository->all();
 
         return view('users.index')

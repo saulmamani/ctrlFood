@@ -40,6 +40,8 @@ Route::group(['middleware'=>'auth'], function(){
 
     Route::resource('details', 'DetailController', ['only' => 'store']);
 
+    Route::get('print_recibo/{id}', 'ReporteController@print_recibo');
+
 });
 
 Route::get('prueba', function(){

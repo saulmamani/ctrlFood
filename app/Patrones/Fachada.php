@@ -11,6 +11,16 @@ use App\Patrones\Rol;
 
 class Fachada
 {
+    public static function datosEmpresa()
+    {
+        return [
+            'nombre' => 'SALI Restaurant',
+            'nit' => '3095304010',
+            'direccion' => 'Plan 500 Av. Heroes del Chaco #232',
+            'telefono' => '76137269',
+        ];
+    }
+
     public static function roles()
     {
         return array(

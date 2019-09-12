@@ -4,19 +4,18 @@
 <ul class="products-list product-list-in-box">
     <li class="item" v-for='(row, index) in buscarProductos' :key='row.id' :data-index='index' >
         <div class="product-img">
-            <img :src='/images_products/ + row.fotografia' alt="Product Image">
+            <img class="img" :src='/images_products/ + row.fotografia' alt="Product Image">
         </div>
         <div class="product-info">
-            <a href="javascript:void(0)" class="product-title">@{{ row.nombre }}</a>
+            <strong href="javascript:void(0)" class="product-title">@{{ row.nombre }}</strong>
 
             <span class="fa-pull-right" style="margin-left: 10px;">
                 <button class="btn btn-success btn-sm" @click='agregarCarrito(row, row.id)'><i class="glyphicon glyphicon-chevron-right"></i>Añadir </button>
             </span>
-            <span class="label label-danger pull-right">Bs. @{{ row.precio }}</span>
 
-            <span class="product-description">
-                @{{ row.categoria }}
-            </span>
+            <h5 class="product-description">
+               Bs.  @{{ row.precio }}
+            </h5>
         </div>
     </li>
 </ul>

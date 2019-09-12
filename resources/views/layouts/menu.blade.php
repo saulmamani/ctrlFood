@@ -16,6 +16,6 @@
     </li>
 @endif
 
-{{--<li class="{{ Request::is('reports*') ? 'active' : '' }}">--}}
-{{--    <a href="{!! route('clients.index') !!}"><i class="fa fa-file"></i><span>Reportes</span></a>--}}
-{{--</li>--}}
+<li class="{{ Request::is('reports*') ? 'active' : '' }}">
+    <a href="{!! route('clients.index') !!}"><i class="fa fa-file"></i><span>Reportes</span></a>
+</li>

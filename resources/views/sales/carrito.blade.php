@@ -19,8 +19,8 @@
             <td><button class="btn btn-xs btn-danger" title="Eliminar" @click="eliminarItemCarrito(row, index)"><i class="glyphicon glyphicon-trash"></i></button></td>
         </tr>
         <tr>
-            <td colspan="3" class="text-right"><strong>Total</strong></td>
-            <td class="text-right">@{{Math.round(sumaTotal*100)/100}}</td>
+            <td colspan="3" class="text-right"><strong>Total [Bs]:</strong></td>
+            <td class="text-right"><strong> @{{Math.round(sumaTotal*100)/100}}</strong></td>
         </tr>
         </tbody>
     </table>

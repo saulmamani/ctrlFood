@@ -10,20 +10,23 @@
     "require": {
         "php": "^7.1.3",
         "appointer/swaggervel": "dev-master",
+        "barryvdh/laravel-dompdf": "^0.8.4",
         "barryvdh/laravel-ide-helper": "^2.6",
         "doctrine/dbal": "~2.3",
         "fideloper/proxy": "^4.0",
+        "fzaninotto/faker": "^1.4",
         "infyomlabs/adminlte-templates": "5.8.x-dev",
         "infyomlabs/laravel-generator": "5.8.x-dev",
         "infyomlabs/swagger-generator": "dev-master",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^5.8.0"
+        "laravelcollective/html": "^5.8.0",
+        "simplesoftwareio/simple-qrcode": "^2.0",
+        "villca/numeros-en-letras": "^1.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
         "filp/whoops": "^2.0",
-        "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.5"

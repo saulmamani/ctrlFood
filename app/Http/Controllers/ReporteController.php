@@ -6,6 +6,7 @@ use App\Models\Detail;
 use App\Models\Sale;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ReporteController extends Controller
 {
@@ -14,9 +15,6 @@ class ReporteController extends Controller
         $sale = Sale::findOrFail($id);
         $details = Detail::where('sales_id', $id)->get();
         return view('reports.recibo')->with(['sale' => $sale, 'details' => $details]);
-//        $pdf = \PDF::loadView('reports.recibo', ['sale' => $sale, 'details' => $details])
-//            ->setPaper(array(100,100,0,0))->setWarnings(false)->save('recibo.pdf');
-//        return $pdf->stream();
     }
 
     public function reporte_economico(Request $request)
@@ -24,10 +22,28 @@ class ReporteController extends Controller
         $input = $request->all();
         $sales = $this->search_form($request, $input);
 
-//        return view("reports.economico")->with('sales', $sales);
         $pdf = \PDF::loadView('reports.economico', ['sales' => $sales])
-                        ->setPaper("letter", "portrait")->setWarnings(false)->save('report.pdf');
+            ->setPaper("letter", "portrait")->setWarnings(false)->save('report.pdf');
         return $pdf->stream();
+    }
+
+    public function reporte_estadistico(Request $request)
+    {
+        $anio = $request->txtAnio;
+
+        $totales = DB::select("select to_char(s.fecha, 'TMMonth') as mes, sum(d.precio * d.cantidad) as total
+                                    from sales s
+                                             inner join details d on s.id = d.sales_id
+                                    where extract(year  from s.fecha) = ?
+                                    group by to_char(s.fecha, 'TMMonth'), extract(month from s.fecha)", [$anio]);
+
+        $ymax = 0;
+        foreach ($totales as $row)
+            if($row->total > $ymax)
+                $ymax = $row->total;
+
+        return view('reports.estadistico')
+            ->with(['totales' => $totales, 'ymax' => $ymax]);
     }
 
     /**

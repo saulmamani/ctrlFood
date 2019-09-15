@@ -59,6 +59,6 @@
     </table>
 </div>
 
-<div class="text-right">
-    <h4>Total vendido [Bs]: {{ round($total, 2) }}</h4>
+<div class="col-sm-12 text-right">
+    <h4><strong>Total vendido [Bs]: {{ round($total, 2) }}</strong></h4>
 </div>

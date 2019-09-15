@@ -6,8 +6,9 @@
 @endphp
 
 <div class="row">
-    <form action="{{ url('sales') }}">
-
+{{--    <form v-if="isReport" action="{{ url('reporte_economico') }}" id="frmSearch">--}}
+{{--    <form v-else action="{{ url('sales') }}" id="frmSearch">--}}
+    <form id="frmSearch">
         <div class="form-group col-sm-3">
             {!! Form::label('txtBuscar', 'Buscar por:') !!}
             {!! Form::text('txtBuscar', $buscar, ['class' => 'form-control', 'placeholder'=>'Nit, Cliente, Numero']) !!}
@@ -29,8 +30,8 @@
         </div>
 
         <div class="form-group col-sm-3" style="margin-top: 25px">
-            <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-search"></i> Buscar</button>
-            <a href="#" class="btn btn-default"><i class="glyphicon glyphicon-print"></i> Imprimir reporte</a>
+            <button type="button" class="btn btn-success" @click="print_report('sales')"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+            <button type="button" class="btn btn-default" @click="print_report('reporte_economico')"><i class="glyphicon glyphicon-print" ></i> Reporte ecónomico</button>
         </div>
 
     </form>

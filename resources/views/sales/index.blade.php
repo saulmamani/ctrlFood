@@ -8,7 +8,7 @@
                href="{!! route('sales.create') !!}">Nueva venta</a>
         </h1>
     </section>
-    <div class="content">
+    <div class="content" id="appSales">
         <div class="clearfix"></div>
 
         @include('flash::message')
@@ -24,5 +24,23 @@
 
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        appSales = new Vue({
+            el: "#appSales",
+            data:{
+                isReport: false
+            },
+            methods:{
+                print_report(route){
+                    var url = "{{ url('ruta') }}".replace('ruta', route);
+                    $("#frmSearch").attr("action", url).submit();
+                    this.isReport = true;
+                }
+            }
+        });
+    </script>
 @endsection
 

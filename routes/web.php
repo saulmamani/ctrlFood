@@ -41,6 +41,7 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('details', 'DetailController', ['only' => 'store']);
 
     Route::get('print_recibo/{id}', 'ReporteController@print_recibo');
+    route::get('reporte_economico', 'ReporteController@reporte_economico');
 
 });
 

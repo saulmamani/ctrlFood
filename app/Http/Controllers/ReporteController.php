@@ -18,4 +18,9 @@ class ReporteController extends Controller
 //            ->setPaper(array(100,100,0,0))->setWarnings(false)->save('recibo.pdf');
 //        return $pdf->stream();
     }
+
+    public function reporte_economico(Request $request)
+    {
+        return "report here";
+    }
 }

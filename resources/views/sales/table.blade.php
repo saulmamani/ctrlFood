@@ -32,7 +32,7 @@
                         <span class="label label-danger">Anulado</span>
                     @endif
                 </td>
-                <td style="width: 215px">
+                <td style="width: 230px">
                     {!! Form::open(['route' => ['sales.destroy', $sale->id], 'method' => 'delete']) !!}
                     <div class='btn-group'>
                         <a href="{!! route('sales.show', [$sale->id]) !!}" title="Detalle de la venta"
@@ -41,9 +41,9 @@
 
                         @if(date('d/m/Y', strtotime($sale->fecha)) === date('d/m/Y'))
                             @if ($sale->estado)
-                                {!! Form::button('<i class="glyphicon glyphicon-trash"></i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Anular']) !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-trash">Anular</i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Anular']) !!}
                             @else
-                                {!! Form::button('<i class="glyphicon glyphicon-arrow-up"></i>', ['type' => 'submit', 'class' => 'btn btn-success btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Restablecer']) !!}
+                                {!! Form::button('<i class="glyphicon glyphicon-arrow-up">Restablecer</i>', ['type' => 'submit', 'class' => 'btn btn-success btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Restablecer']) !!}
                             @endif
                         @endif
 

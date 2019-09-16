@@ -23,7 +23,8 @@
 
                             <form action="" class="text-center">
                                 Gestión:
-                                <input type="number" name="txtAnio" id="txtAnio" value="<?php echo date('Y')?>">
+                                <input type="number" name="txtAnio" id="txtAnio"
+                                       value="{{ isset($_GET['txtAnio']) ? $_GET['txtAnio'] : date('Y') }}">
                                 <button type="submit">Aceptar</button>
                             </form>
                             <hr>

@@ -29,7 +29,9 @@ class ReporteController extends Controller
 
     public function reporte_estadistico(Request $request)
     {
-        $anio = $request->txtAnio;
+        $anio = date("Y");
+        if($request->txtAnio)
+            $anio = $request->txtAnio;
 
         $totales = DB::select("select to_char(s.fecha, 'TMMonth') as mes, sum(d.precio * d.cantidad) as total
                                     from sales s

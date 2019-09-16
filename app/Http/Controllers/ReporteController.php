@@ -37,13 +37,18 @@ class ReporteController extends Controller
                                     where extract(year  from s.fecha) = ?
                                     group by to_char(s.fecha, 'TMMonth'), extract(month from s.fecha)", [$anio]);
 
+        $clientes =DB::select("select s.razon_social, sum(d.precio * d.cantidad) as total
+                                    from sales s inner join details d on s.id = d.sales_id
+                                    group by s.razon_social
+                                    order by total desc");
+
         $ymax = 0;
         foreach ($totales as $row)
             if($row->total > $ymax)
                 $ymax = $row->total;
 
         return view('reports.estadistico')
-            ->with(['totales' => $totales, 'ymax' => $ymax]);
+            ->with(['totales' => $totales, 'ymax' => $ymax, 'clientes' => $clientes]);
     }
 
     /**

@@ -29,7 +29,8 @@
                             <hr>
                             <canvas id="canvas"></canvas>
                         </div>
-                        <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">dos
+                        <div class="chart tab-pane" id="sales-chart" style="position: relative;">
+                            @include('reports.clientes')
                         </div>
                     </div>
                 </div>
@@ -40,8 +41,8 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
-    <script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <script src="{{ asset('js/Chart.min.js') }}"></script>
+    <script src="{{ asset('js/utils.js') }}"></script>
     <script>
         var config = {
             type: 'line',

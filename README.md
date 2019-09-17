@@ -7,10 +7,10 @@ Sistema para la venta de comidas y bebidas.
 - CRUD clientes
 - Registro de ventas
 - Lista de ventas realizadas
-- Reportes economicos
-- Reportes estadisticos
+- Reportes económicos
+- Reportes estadísticos
 
-Orientado a restaurants, fondas, pollerias, pensiones, franquisias de comida rapida, etc.
+Orientado a restaurants, fondas, pollerias, pensiones, franquicias de comida rápida, etc.
 
 ## Acerca de...
 

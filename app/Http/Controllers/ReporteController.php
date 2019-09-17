@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Detail;
 use App\Models\Sale;
+use App\Patrones\Permiso;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +30,9 @@ class ReporteController extends Controller
 
     public function reporte_estadistico(Request $request)
     {
+        if(!Permiso::esAdministrador())
+            abort(401);
+
         $anio = date("Y");
         if($request->txtAnio)
             $anio = $request->txtAnio;

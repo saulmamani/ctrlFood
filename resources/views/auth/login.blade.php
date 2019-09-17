@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ctrlFood</title>
+    <title>ctrlFOOD</title>
 
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -32,8 +32,10 @@
     <![endif]-->
 
     <style type="text/css">
-        .sombra{
-            border: 1px solid #D0D0D0; box-shadow: 0 3px 12px rgba(0, 0, 0, .09); border-radius: 7px;
+        .sombra {
+            border: 1px solid #D0D0D0;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .09);
+            border-radius: 7px;
         }
     </style>
 
@@ -41,7 +43,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="{{ url('/home') }}">ctrl<b>Food</b></a>
+        <a href="{{ url('/home') }}">ctrl<b>FOOD</b></a>
     </div>
 
     <!-- /.login-logo -->
@@ -82,6 +84,19 @@
 
     </div>
     <!-- /.login-box-body -->
+
+    <div class="row" style="margin-top: 50px">
+        <div class="col-md-12 text-center text-muted">
+            &copy; Saul Mamani M. <br> <br>
+            luas0_1@yahoo.es <br>
+            <a href="https://saulmamani.github.io/" target="_blank">https://saulmamani.github.io/</a>
+        </div>
+
+        <div class="col-md-12 text-center" style="color: #A0A0A0">
+            <br><br><br>
+            Email: lidia@yahoo.es &nbsp;&nbsp;&nbsp;&nbsp; Password: 123456
+        </div>
+    </div>
 </div>
 <!-- /.login-box -->
 

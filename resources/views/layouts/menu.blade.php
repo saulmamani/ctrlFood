@@ -14,8 +14,8 @@
     <li class="{{ Request::is('users*') ? 'active' : '' }}">
         <a href="{!! route('users.index') !!}"><i class="fa fa-user"></i><span>Usuarios</span></a>
     </li>
-@endif
 
 <li class="{{ Request::is('reporte*') ? 'active' : '' }}">
     <a href="{!! url('reporte_estadistico') !!}"><i class="fa fa-file"></i><span>Reportes</span></a>
 </li>
+@endif

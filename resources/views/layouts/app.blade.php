@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>ctrlFood</title>
+    <title>ctrlFOOD</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 
     <!-- Bootstrap 3.3.7 -->
@@ -41,8 +41,8 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="#" class="logo">
-                ctrl<strong>Food</strong>
+            <a href="{!! url('home') !!}" class="logo">
+                ctrl<strong>FOOD</strong>
             </a>
 
             <!-- Header Navbar -->

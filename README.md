@@ -40,6 +40,10 @@ Ejecutar la aplicación web
 
 http://ctrlfood.herokuapp.com/
 
+## Documentación
+
+https://www.slideshare.net/luas0_1/aplicacin-de-scrum-y-uml-para-el-desarrollo-de-un-sistema-de-ventas
+
 
 ## Acerca de...
 

@@ -2,19 +2,19 @@
     <!-- Categoria Field -->
     <div class="form-group">
         {!! Form::label('categoria', 'Categoría:') !!}
-        <p>{!! $product->categoria !!}</p>
+        <p>{{ $product->categoria }}</p>
     </div>
 
     <!-- Nombre Field -->
     <div class="form-group">
         {!! Form::label('nombre', 'Nombre:') !!}
-        <p>{!! $product->nombre !!}</p>
+        <p>{{ $product->nombre }}</p>
     </div>
 
     <!-- Precio Field -->
     <div class="form-group">
         {!! Form::label('precio', 'Precio: [Bs]') !!}
-        <p>{!! $product->precio !!}</p>
+        <p>{{ $product->precio }}</p>
     </div>
 </div>
 <div class="col-sm-4 col-md-4">

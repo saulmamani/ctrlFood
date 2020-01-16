@@ -32,6 +32,11 @@ Registrar las credenciales de la base de datos, reconpilar, y luego ejecuar las 
 
 `php artisan migrate:fresh --seed`
 
+Ejecutar la aplicación web
+
+`php artisan serv`
+
+
 ## Acerca de...
 
 - Desarrollado por: Saul Mamani M.

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'croFood'),
+    'name' => env('APP_NAME', 'ctrlFood'),
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'base64:PWqctGaquXBC3nWagb154TFBLSQec8+Uvt3E3r4kxIU='),
+    'key' => env('APP_KEY', 'base64:7lp/DAkwl7+0/8F2A+4xQb72mt7VYOlIOnDzeye3ywg='),
 
     'cipher' => 'AES-256-CBC',
 

@@ -141,10 +141,10 @@
                                 }
                                 else
                                 {
-                                    alert(formarListaDeErrores(response.data));
+                                    alert(formarListaDeErrores(response.data.errors));
                                 }
                             }).catch(error => {
-                                alert(formarListaDeErrores(error.response.data));
+                                alert(formarListaDeErrores(error.response.data.errors));
                             });
                         }
                     }
@@ -167,7 +167,7 @@
                     }).catch(error => {
                         let url = "{{ url('sale_delete/pid') }}".replace('pid', sale.id);
                         axios.delete(url);
-                        alert(formarListaDeErrores(error.response.data));
+                        alert(formarListaDeErrores(error.response.data.errors));
                     });
                 },
             },

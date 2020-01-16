@@ -105,7 +105,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2019 <a href="https://saulmamani.github.io/">Saul Mamani</a>.</strong> Todos los derechos reservados.
+            <strong>Copyright © 2020 <a href="https://saulmamani.github.io/">Saul Mamani</a>.</strong> Todos los derechos reservados.
         </footer>
 
     </div>

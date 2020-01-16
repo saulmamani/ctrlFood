@@ -36,6 +36,10 @@ Ejecutar la aplicación web
 
 `php artisan serv`
 
+## Demo
+
+http://ctrlfood.herokuapp.com/
+
 
 ## Acerca de...
 

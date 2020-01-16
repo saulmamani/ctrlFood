@@ -49,7 +49,7 @@ class Client extends Model
      */
     public static $rules = [
         'nit' => 'required|min:7|max:15|alpha_num',
-        'razon_social' => 'required|min:3|max:50|alpha_num_spaces',
+        'razon_social' => 'required|min:3|max:50|alpha_spaces',
     ];
 
     /**

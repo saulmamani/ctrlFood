@@ -12,6 +12,26 @@ Sistema para la venta de comidas y bebidas.
 
 Orientado a restaurants, fondas, pollerias, pensiones, franquicias de comida rápida, etc.
 
+## Instalación
+
+`git clone https://github.com/saulmamani/ctrlFood.git`
+
+`cd ctrlFood`
+
+`composer install`
+
+`cp .env.example .env`
+
+`php artisan key:generate`
+
+Registrar las credenciales de la base de datos, reconpilar, y luego ejecuar las migraciones
+
+`php artisan cache:clear`
+
+`php artisan config:cache`
+
+`php artisan migrate:fresh --seed`
+
 ## Acerca de...
 
 - Desarrollado por: Saul Mamani M.

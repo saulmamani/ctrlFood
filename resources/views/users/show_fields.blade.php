@@ -34,19 +34,19 @@
         <!-- Name Field -->
         <div class="form-group">
             {!! Form::label('name', 'Nombre Completo:') !!}
-            <p>{!! $user->name !!}</p>
+            <p>{{ $user->name }}</p>
         </div>
 
         <!-- Email Field -->
         <div class="form-group">
             {!! Form::label('email', 'Cuenta:') !!}
-            <p>{!! $user->email !!}</p>
+            <p>{{ $user->email }}</p>
         </div>
 
         <!-- Rol Field -->
         <div class="form-group">
             {!! Form::label('rol', 'Rol:') !!}
-            <p>{!! $user->rol !!}</p>
+            <p>{{ $user->rol }}</p>
         </div>
     </div>
 

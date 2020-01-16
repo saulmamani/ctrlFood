@@ -87,14 +87,16 @@
 
     <div class="row" style="margin-top: 50px">
         <div class="col-md-12 text-center text-muted">
-            &copy; Saul Mamani M. <br> <br>
-            luas0_1@yahoo.es <br>
+            &copy; Saul Mamani M. <br>
             <a href="https://saulmamani.github.io/" target="_blank">https://saulmamani.github.io/</a>
         </div>
 
         <div class="col-md-12 text-center" style="color: #A0A0A0">
-            <br><br><br>
+            <br><br>
+            Credenciales de prueba: <br>
             Email: lidia@yahoo.es &nbsp;&nbsp;&nbsp;&nbsp; Password: 123456
+            <br><br>
+            <a href="https://www.slideshare.net/luas0_1/aplicacin-de-scrum-y-uml-para-el-desarrollo-de-un-sistema-de-ventas" target="_blank">Documentación del sistema</a>
         </div>
     </div>
 </div>

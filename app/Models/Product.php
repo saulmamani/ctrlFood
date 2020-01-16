@@ -55,8 +55,8 @@ class Product extends Model
      */
     public static $rules = [
         'categoria' => 'required|min:3|max:50',
-        'nombre' => 'required|min:5|max:50',
-        'precio' => 'required'
+        'nombre' => 'required|min:5|max:50|alpha_num_spaces',
+        'precio' => 'required|numeric|min:0.2|max:5000'
     ];
 
     /**

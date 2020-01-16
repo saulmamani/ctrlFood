@@ -182,6 +182,8 @@ return [
 
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
+        App\Providers\CustomValidationRulesProvider::class,
+
     ],
 
     /*

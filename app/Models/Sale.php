@@ -66,10 +66,9 @@ class Sale extends Model
      * @var array
      */
     public static $rules = [
-//        'clients_id' => 'required'
-        'razon_social' => 'required|min:3|max:50',
-        'nit' => 'required|min:7|max:15',
-        'concepto' => 'required|min:5|max:100',
+        'nit' => 'required|min:7|max:15|alpha_num',
+        'razon_social' => 'required|min:3|max:50|alpha_num_spaces',
+        'concepto' => 'required|min:5|max:100|alpha_num_spaces',
     ];
 
     //datos calculados

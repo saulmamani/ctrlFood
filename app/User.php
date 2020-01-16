@@ -30,10 +30,10 @@ class User extends Authenticatable
 
     public static function rules($isEdit)
     {
-        $email = $isEdit ? 'required|min:5|max:100' : 'required|unique:users|min:5|max:100';
+        $email = $isEdit ? 'required|min:5|max:50' : 'required|unique:users|min:5|max:50';
         return $rules = [
             'email' => $email,
-            'name' => 'required|min:3|max:50',
+            'name' => 'required|min:3|max:50|alpha_spaces',
             'rol' => 'required',
         ];
     }

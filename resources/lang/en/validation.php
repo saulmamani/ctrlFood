@@ -115,6 +115,8 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'alpha_spaces'         => 'The :attribute may only contain letters and spaces.',
+    'alpha_num_spaces'         => 'The :attribute may only contain letters and numbers and spaces.',
 
     /*
     |--------------------------------------------------------------------------

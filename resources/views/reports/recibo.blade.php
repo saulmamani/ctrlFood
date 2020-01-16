@@ -98,6 +98,7 @@
         <td>
             <strong>Nit / Ci: </strong> {{ $sale->nit}} <br>
             <strong>Razón Social: </strong> {{ $sale->razon_social }} <br>
+            <strong>Concepto: </strong> {{ $sale->concepto }} <br>
         </td>
     </tr>
 </table>

@@ -48,8 +48,8 @@ class Client extends Model
      * @var array
      */
     public static $rules = [
-        'razon_social' => 'required|min:3|max:50',
-        'nit' => 'required|min:7|max:15',
+        'nit' => 'required|min:7|max:15|alpha_num',
+        'razon_social' => 'required|min:3|max:50|alpha_num_spaces',
     ];
 
     /**

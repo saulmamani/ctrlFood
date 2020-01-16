@@ -54,8 +54,8 @@ class Product extends Model
      * @var array
      */
     public static $rules = [
-        'categoria' => 'required',
-        'nombre' => 'required',
+        'categoria' => 'required|min:3|max:50',
+        'nombre' => 'required|min:5|max:50',
         'precio' => 'required'
     ];
 

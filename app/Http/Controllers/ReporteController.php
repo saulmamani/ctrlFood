@@ -24,7 +24,6 @@ class ReporteController extends Controller
             $input = $request->all();
             $sales = $this->search_form($request, $input);
 
-            return view('reports.economico', compact('sales'));
 
             $pdf = \PDF::loadView('reports.economico', ['sales' => $sales])
                 ->setPaper("letter", "portrait")->setWarnings(false);

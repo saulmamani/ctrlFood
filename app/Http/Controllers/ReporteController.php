@@ -85,8 +85,8 @@ class ReporteController extends Controller
         if (is_null($txtBuscar))
             $txtBuscar = '';
 
-        $sales = Sale::where('estado', $request->txtEstado)
-            ->whereBetween('fecha', [$dtpInicio, $dtpFinal])
+        $sales = Sale::whereEstado($request->txtEstado)
+            //->whereBetween('fecha', [$dtpInicio, $dtpFinal])
             ->where(function ($q) use ($txtBuscar) {
                 $q->where('razon_social', 'like', '%' . $txtBuscar . '%')
                     ->orwhere('numero_ticket', 'like', '%' . $txtBuscar . '%')

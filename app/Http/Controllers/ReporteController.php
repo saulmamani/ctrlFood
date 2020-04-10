@@ -79,6 +79,7 @@ class ReporteController extends Controller
 //        }
 //
 
+        dd([count($input), $request->txtEstado]);
 
         if (count($input) > 0 && !is_null($request->txtEstado)) {
             $txtBuscar = $request->txtBuscar;
@@ -94,8 +95,6 @@ class ReporteController extends Controller
                 })
                 ->orderBy('id', 'desc')->get();
         } else {
-            dd([$dtpInicio, $dtpFinal, $request->txtBuscar]);
-
             $sales = Sale::where('estado', 1)->whereBetween('fecha', [$dtpInicio, $dtpFinal])->orderBy('id', 'desc')->get();
         }
         return $sales;

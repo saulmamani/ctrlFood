@@ -31,7 +31,7 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
-        if(!Permiso::esAdministrador())
+        if (!Permiso::esAdministrador())
             abort(401);
 
         $users = $this->userRepository->all();
@@ -95,15 +95,19 @@ class UserController extends AppBaseController
      */
     public function show($id)
     {
-        $user = $this->userRepository->find($id);
+        if ($id == auth()->user()->id || Permiso::esAdministrador()) {
+            $user = $this->userRepository->find($id);
 
-        if (empty($user)) {
-            Flash::error('User not found');
+            if (empty($user)) {
+                Flash::error('User not found');
 
-            return redirect(route('users.index'));
+                return redirect(route('users.index'));
+            }
+
+            return view('users.show')->with('user', $user);
+        } else {
+            abort(401);
         }
-
-        return view('users.show')->with('user', $user);
     }
 
     /**

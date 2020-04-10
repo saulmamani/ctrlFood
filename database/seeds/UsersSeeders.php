@@ -14,7 +14,7 @@ class UsersSeeders extends Seeder
         DB::table('users')->insert([
             [
                 'email' => 'luas0_1@yahoo.es',
-                'password' => \Hash::make('123456'),
+                'password' => \Hash::make('654321'),
                 'rol' => 'Administrador',
                 'name' => 'Saul Mamani M.',
                 'fotografia' => 'foto_base.png',
@@ -25,7 +25,7 @@ class UsersSeeders extends Seeder
                 'rol' => 'Vendedor',
                 'name' => 'Lidia Marce Barrios',
                 'fotografia' => 'foto_base.png',
-            ], 
+            ],
         ]);
     }
 }

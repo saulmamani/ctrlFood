@@ -20,21 +20,25 @@ class ReporteController extends Controller
 
     public function reporte_economico(Request $request)
     {
-        $input = $request->all();
-        $sales = $this->search_form($request, $input);
+        try {
+            $input = $request->all();
+            $sales = $this->search_form($request, $input);
 
-        $pdf = \PDF::loadView('reports.economico', ['sales' => $sales])
-            ->setPaper("letter", "portrait")->setWarnings(false)->save('report.pdf');
-        return $pdf->stream();
+            $pdf = \PDF::loadView('reports.economico', ['sales' => $sales])
+                ->setPaper("letter", "portrait")->setWarnings(false);
+            return $pdf->stream();
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function reporte_estadistico(Request $request)
     {
-        if(!Permiso::esAdministrador())
+        if (!Permiso::esAdministrador())
             abort(401);
 
         $anio = date("Y");
-        if($request->txtAnio)
+        if ($request->txtAnio)
             $anio = $request->txtAnio;
 
         $totales = DB::select("select to_char(s.fecha, 'TMMonth') as mes, sum(d.precio * d.cantidad) as total
@@ -43,14 +47,14 @@ class ReporteController extends Controller
                                     where extract(year  from s.fecha) = ?
                                     group by to_char(s.fecha, 'TMMonth'), extract(month from s.fecha)", [$anio]);
 
-        $clientes =DB::select("select s.razon_social, sum(d.precio * d.cantidad) as total
+        $clientes = DB::select("select s.razon_social, sum(d.precio * d.cantidad) as total
                                     from sales s inner join details d on s.id = d.sales_id
                                     group by s.razon_social
                                     order by total desc");
 
         $ymax = 0;
         foreach ($totales as $row)
-            if($row->total > $ymax)
+            if ($row->total > $ymax)
                 $ymax = $row->total;
 
         return view('reports.estadistico')

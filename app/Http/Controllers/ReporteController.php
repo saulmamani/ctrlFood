@@ -81,6 +81,7 @@ class ReporteController extends Controller
 
         //dd([count($input), $request->txtEstado]);
 
+        dd($request->txtBuscar);
         $txtBuscar = $request->txtBuscar;
         if (is_null($txtBuscar))
             $txtBuscar = '';

@@ -1,5 +1,5 @@
 <div>
-    <table class="mytable id="sales-table">
+    <table class="mytable" id="sales-table">
         <thead>
         <tr>
             <th>Número <br> de Ticket</th>

@@ -71,6 +71,9 @@ class ReporteController extends Controller
         //formateando fechas
         $dtpInicio = \DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d') . ' 00:00:00');
         $dtpFinal = \DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d') . ' 23:59:59');
+
+        dd([$dtpInicio, $dtpFinal]);
+
         if (!empty($request->txtDesde) && !empty($request->txtHasta)) {
             $dtpInicio = \DateTime::createFromFormat('d/m/Y H:i:s', date($request->txtDesde) . ' 00:00:00');
             $dtpFinal = \DateTime::createFromFormat('d/m/Y H:i:s', date($request->txtHasta) . ' 23:59:59');

@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'env' => env('APP_ENV', 'local'),
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', true),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -119,7 +119,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', 'base64:7lp/DAkwl7+0/8F2A+4xQb72mt7VYOlIOnDzeye3ywg='),
+    'key' => env('APP_KEY', 'base64:wZKbGDTLfzMQXfJi8jOycAPy7FrEy+tMm4yZwXMLzKo='),
 
     'cipher' => 'AES-256-CBC',
 

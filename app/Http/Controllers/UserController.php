@@ -68,27 +68,31 @@ class UserController extends AppBaseController
      */
     public function store(CreateUserRequest $request)
     {
-        $input = $request->all();
+        try {
+            $input = $request->all();
 
-        $input['password'] = \Hash::make($request->password);
-        $input['alta'] = true;
-        if (isset($input['foto_input']))
-            $input['fotografia'] = $this->subirArchivo($input['foto_input']);
-        else
-            $input['fotografia'] = 'foto_base.png';
+            $input['password'] = \Hash::make($request->password);
+            $input['alta'] = true;
+            if (isset($input['foto_input']))
+                $input['fotografia'] = $this->subirArchivo($input['foto_input']);
+            else
+                $input['fotografia'] = 'foto_base.png';
 
-        $user = $this->userRepository->create($input);
+            $user = $this->userRepository->create($input);
 
-        Flash::success('User saved successfully.');
+            Flash::success('User saved successfully.');
 
-        return redirect(route('users.index'));
+            return redirect(route('users.index'));
+        } catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function show($id)
     {
         $user = $this->userRepository->find($id);
 
-        $this->authorize('show',$user);
+        $this->authorize('show', $user);
 
         if (empty($user)) {
             Flash::error('User not found');

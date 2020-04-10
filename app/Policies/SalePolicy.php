@@ -2,11 +2,13 @@
 
 namespace App\Policies;
 
+use App\Models\Product;
+use App\Models\Sale;
 use App\Patrones\Rol;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class SalePolicy
 {
     use HandlesAuthorization;
 
@@ -28,8 +30,8 @@ class UserPolicy
         }
     }
 
-    public function show(User $authUser, User $user)
+    public function destroy(User $userAuth, Sale $sale)
     {
-        return $authUser->id === $user->id;
+        return $userAuth->id === $sale->users_id;
     }
 }

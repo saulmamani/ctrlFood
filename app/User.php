@@ -2,6 +2,7 @@
 
 namespace App;
 
+use http\Env\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,9 +29,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public static function rules($isEdit)
+    public static function rules($isEdit = false, \Illuminate\Http\Request $request = null)
     {
-        $email = $isEdit ? 'required|min:5|max:50' : 'required|unique:users|min:5|max:50';
+        $email = $isEdit ? 'required|min:5|max:50|unique:users,email,' . $request->route('user') : 'required|min:5|max:50|unique:users,email';
         return $rules = [
             'email' => $email,
             'name' => 'required|min:3|max:50|alpha_spaces',

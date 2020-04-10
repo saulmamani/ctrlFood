@@ -168,6 +168,8 @@ class SaleController extends AppBaseController
     {
         $sale = $this->saleRepository->find($id);
 
+        $this->authorize('destroy', $sale);
+
         if (empty($sale)) {
             Flash::error('Sale not found');
 

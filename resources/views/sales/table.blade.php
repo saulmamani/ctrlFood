@@ -39,14 +39,15 @@
                            class='btn btn-primary btn-xs'><i class="glyphicon glyphicon-eye-open"></i> Detalle de la
                             venta</a>
 
-                        @if(date('d/m/Y', strtotime($sale->fecha)) === date('d/m/Y'))
-                            @if ($sale->estado)
-                                {{ Form::button('<i class="glyphicon glyphicon-trash">Anular</i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Anular']) }}
-                            @else
-                                {{ Form::button('<i class="glyphicon glyphicon-arrow-up">Restablecer</i>', ['type' => 'submit', 'class' => 'btn btn-success btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Restablecer']) }}
+                        @can('destroy', $sale)
+                            @if(date('d/m/Y', strtotime($sale->fecha)) === date('d/m/Y'))
+                                @if ($sale->estado)
+                                    {{ Form::button('<i class="glyphicon glyphicon-trash">Anular</i>', ['type' => 'submit', 'class' => 'btn btn-danger btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Anular']) }}
+                                @else
+                                    {{ Form::button('<i class="glyphicon glyphicon-arrow-up">Restablecer</i>', ['type' => 'submit', 'class' => 'btn btn-success btn-xs', 'onclick' => "return confirm('Estas seguro?')", 'title'=>'Restablecer']) }}
+                                @endif
                             @endif
-                        @endif
-
+                        @endcan
                     </div>
                     {{ Form::close() }}
                 </td>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Sale;
+use App\Policies\SalePolicy;
 use App\Policies\UserPolicy;
 use App\User;
 use Illuminate\Support\Facades\Gate;
@@ -15,7 +17,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-//        User::class => UserPolicy::class
+        User::class => UserPolicy::class,
+        Sale::class => SalePolicy::class,
     ];
 
     /**

@@ -24,6 +24,8 @@ class ReporteController extends Controller
             $input = $request->all();
             $sales = $this->search_form($request, $input);
 
+            return view('reports.economico', compact('sales'));
+
             $pdf = \PDF::loadView('reports.economico', ['sales' => $sales])
                 ->setPaper("letter", "portrait")->setWarnings(false);
             return $pdf->stream();
@@ -73,11 +75,11 @@ class ReporteController extends Controller
         $dtpFinal = \DateTime::createFromFormat('Y-m-d H:i:s', date('Y-m-d') . ' 23:59:59');
 
 
-//        if (!empty($request->txtDesde) && !empty($request->txtHasta)) {
-//            $dtpInicio = \DateTime::createFromFormat('d/m/Y H:i:s', date($request->txtDesde) . ' 00:00:00');
-//            $dtpFinal = \DateTime::createFromFormat('d/m/Y H:i:s', date($request->txtHasta) . ' 23:59:59');
-//        }
-//
+        if (!empty($request->txtDesde) && !empty($request->txtHasta)) {
+            $dtpInicio = \DateTime::createFromFormat('d/m/Y H:i:s', date($request->txtDesde) . ' 00:00:00');
+            $dtpFinal = \DateTime::createFromFormat('d/m/Y H:i:s', date($request->txtHasta) . ' 23:59:59');
+        }
+
 
         $txtBuscar = $request->txtBuscar;
         if (is_null($txtBuscar))
@@ -91,8 +93,6 @@ class ReporteController extends Controller
                     ->orWhere('nit', 'like', '%' . $txtBuscar . '%');
             })
             ->orderBy('id', 'desc')->get();
-
-        dd($sales);
 
         return $sales;
     }

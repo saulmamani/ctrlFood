@@ -79,24 +79,21 @@ class ReporteController extends Controller
 //        }
 //
 
-        dd([count($input), $request->txtEstado]);
+        //dd([count($input), $request->txtEstado]);
 
-        if (count($input) > 0 && !is_null($request->txtEstado)) {
-            $txtBuscar = $request->txtBuscar;
-            if (is_null($txtBuscar))
-                $txtBuscar = '';
+        $txtBuscar = $request->txtBuscar;
+        if (is_null($txtBuscar))
+            $txtBuscar = '';
 
-            $sales = Sale::where('estado', $request->txtEstado)
-                ->whereBetween('fecha', [$dtpInicio, $dtpFinal])
-                ->where(function ($q) use ($txtBuscar) {
-                    $q->where('razon_social', 'like', '%' . $txtBuscar . '%')
-                        ->orwhere('numero_ticket', 'like', '%' . $txtBuscar . '%')
-                        ->orWhere('nit', 'like', '%' . $txtBuscar . '%');
-                })
-                ->orderBy('id', 'desc')->get();
-        } else {
-            $sales = Sale::where('estado', 1)->whereBetween('fecha', [$dtpInicio, $dtpFinal])->orderBy('id', 'desc')->get();
-        }
+        $sales = Sale::where('estado', $request->txtEstado)
+            ->whereBetween('fecha', [$dtpInicio, $dtpFinal])
+            ->where(function ($q) use ($txtBuscar) {
+                $q->where('razon_social', 'like', '%' . $txtBuscar . '%')
+                    ->orwhere('numero_ticket', 'like', '%' . $txtBuscar . '%')
+                    ->orWhere('nit', 'like', '%' . $txtBuscar . '%');
+            })
+            ->orderBy('id', 'desc')->get();
+
         return $sales;
     }
 }

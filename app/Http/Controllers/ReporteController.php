@@ -86,13 +86,13 @@ class ReporteController extends Controller
             $txtBuscar = '';
 
         $sales = Sale:://whereEstado($request->txtEstado)
-            whereBetween('fecha', [$dtpInicio, $dtpFinal])
+            //whereBetween('fecha', [$dtpInicio, $dtpFinal])
 //            ->where(function ($q) use ($txtBuscar) {
 //                $q->where('razon_social', 'like', '%' . $txtBuscar . '%')
 //                    ->orwhere('numero_ticket', 'like', '%' . $txtBuscar . '%')
 //                    ->orWhere('nit', 'like', '%' . $txtBuscar . '%');
 //            })
-            ->orderBy('id', 'desc')->get();
+            orderBy('id', 'desc')->get();
 
         return $sales;
     }

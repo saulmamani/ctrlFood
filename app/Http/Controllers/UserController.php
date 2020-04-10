@@ -84,28 +84,18 @@ class UserController extends AppBaseController
         return redirect(route('users.index'));
     }
 
-    /**
-     * Display the specified User.
-     *
-     * @param int $id
-     *
-     * @return Response
-     */
     public function show($id)
     {
-        if ($id == auth()->user()->id || Permiso::esAdministrador()) {
-            $user = $this->userRepository->find($id);
+        $user = $this->userRepository->find($id);
 
-            if (empty($user)) {
-                Flash::error('User not found');
+        $this->authorize('show',$user);
 
-                return redirect(route('users.index'));
-            }
-
-            return view('users.show')->with('user', $user);
-        } else {
-            abort(401);
+        if (empty($user)) {
+            Flash::error('User not found');
+            return redirect(route('users.index'));
         }
+
+        return view('users.show')->with('user', $user);
     }
 
     /**

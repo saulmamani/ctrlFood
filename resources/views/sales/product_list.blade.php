@@ -4,7 +4,7 @@
 <ul class="products-list product-list-in-box">
     <li class="item" v-for='(row, index) in buscarProductos' :key='row.id' :data-index='index' >
         <div class="product-img">
-            <img class="img" :src='/images_products/ + row.fotografia' alt="Product Image">
+            <img class="img" :src='"{{ asset('/images_products/fotofoto') }}".replace("fotofoto", row.fotografia)' alt="Product Image">
         </div>
         <div class="product-info">
             <strong href="javascript:void(0)" class="product-title">@{{ row.nombre }}</strong>

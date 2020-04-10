@@ -78,7 +78,6 @@ class ReporteController extends Controller
 //            $dtpFinal = \DateTime::createFromFormat('d/m/Y H:i:s', date($request->txtHasta) . ' 23:59:59');
 //        }
 //
-//        dd([$dtpInicio, $dtpFinal]);
 
 
         if (count($input) > 0 && !is_null($request->txtEstado)) {
@@ -95,6 +94,8 @@ class ReporteController extends Controller
                 })
                 ->orderBy('id', 'desc')->get();
         } else {
+            dd([$dtpInicio, $dtpFinal, $request->txtBuscar]);
+
             $sales = Sale::where('estado', 1)->whereBetween('fecha', [$dtpInicio, $dtpFinal])->orderBy('id', 'desc')->get();
         }
         return $sales;

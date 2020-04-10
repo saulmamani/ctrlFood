@@ -81,10 +81,10 @@ class ReporteController extends Controller
 
         //dd([count($input), $request->txtEstado]);
 
-        dd($request->txtBuscar);
-        $txtBuscar = $request->txtBuscar;
-        if (is_null($txtBuscar))
-            $txtBuscar = '';
+//        dd($request->txtBuscar);
+//        $txtBuscar = $request->txtBuscar;
+//        if (is_null($txtBuscar))
+//            $txtBuscar = '';
 
         $sales = Sale:://whereEstado($request->txtEstado)
             //whereBetween('fecha', [$dtpInicio, $dtpFinal])

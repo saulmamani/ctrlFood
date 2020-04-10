@@ -19,6 +19,7 @@ class UserController extends AppBaseController
 
     public function __construct(UserRepository $userRepo)
     {
+        $this->middleware('administrador')->except(['show']);
         $this->userRepository = $userRepo;
     }
 
@@ -31,9 +32,6 @@ class UserController extends AppBaseController
      */
     public function index(Request $request)
     {
-        if (!Permiso::esAdministrador())
-            abort(401);
-
         $users = $this->userRepository->all();
 
         return view('users.index')

@@ -11,6 +11,15 @@ use Illuminate\Support\Facades\DB;
 
 class ReporteController extends Controller
 {
+
+    /**
+     * ReporteController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('administrador')->only(['reporte_estadistico']);
+    }
+
     public function print_recibo($id)
     {
         $sale = Sale::findOrFail($id);
@@ -24,7 +33,6 @@ class ReporteController extends Controller
             $input = $request->all();
             $sales = $this->search_form($request, $input);
 
-
             $pdf = \PDF::loadView('reports.economico', ['sales' => $sales])
                 ->setPaper("letter", "portrait")->setWarnings(false);
             return $pdf->stream();
@@ -35,9 +43,6 @@ class ReporteController extends Controller
 
     public function reporte_estadistico(Request $request)
     {
-        if (!Permiso::esAdministrador())
-            abort(401);
-
         $anio = date("Y");
         if ($request->txtAnio)
             $anio = $request->txtAnio;

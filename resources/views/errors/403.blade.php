@@ -1,5 +1,5 @@
 @extends('errors::minimal')
 
-@section('title', __('Forbidden'))
+@section('title', __('No tienes permisos para ver este contenido'))
 @section('code', '403')
-@section('message', __('Forbidden'))
+@section('message', __('No tienes permisos para ver este contenido'))

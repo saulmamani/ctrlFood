@@ -79,21 +79,20 @@ class ReporteController extends Controller
 //        }
 //
 
-        //dd([count($input), $request->txtEstado]);
+        $txtBuscar = $request->txtBuscar;
+        if (is_null($txtBuscar))
+            $txtBuscar = '';
 
-//        dd($request->txtBuscar);
-//        $txtBuscar = $request->txtBuscar;
-//        if (is_null($txtBuscar))
-//            $txtBuscar = '';
+        $sales = Sale::whereEstado($request->txtEstado)
+            ->whereBetween('fecha', [$dtpInicio, $dtpFinal])
+            ->where(function ($q) use ($txtBuscar) {
+                $q->where('razon_social', 'like', '%' . $txtBuscar . '%')
+                    ->orwhere('numero_ticket', 'like', '%' . $txtBuscar . '%')
+                    ->orWhere('nit', 'like', '%' . $txtBuscar . '%');
+            })
+            ->orderBy('id', 'desc')->get();
 
-        $sales = Sale:://whereEstado($request->txtEstado)
-            //whereBetween('fecha', [$dtpInicio, $dtpFinal])
-//            ->where(function ($q) use ($txtBuscar) {
-//                $q->where('razon_social', 'like', '%' . $txtBuscar . '%')
-//                    ->orwhere('numero_ticket', 'like', '%' . $txtBuscar . '%')
-//                    ->orWhere('nit', 'like', '%' . $txtBuscar . '%');
-//            })
-            orderBy('id', 'desc')->get();
+        dd($sales);
 
         return $sales;
     }

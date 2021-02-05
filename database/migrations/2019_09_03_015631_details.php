@@ -19,13 +19,13 @@ class Details extends Migration
             $table->integer('cantidad');
 
             //clave foranea
-            $table->unsignedInteger('sales_id');
+            $table->unsignedBigInteger('sales_id');
             $table->foreign('sales_id')
                     ->references('id')->on('sales')
                     ->onDelete('cascade');
 
             //clave foranea
-            $table->unsignedInteger('products_id');
+            $table->unsignedBigInteger('products_id');
             $table->foreign('products_id')
                     ->references('id')->on('products')
                     ->onDelete('cascade');

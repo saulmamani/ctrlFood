@@ -26,13 +26,13 @@ class Sales extends Migration
             $table->boolean('estado')->value(true);
 
             //clave foranea
-            $table->unsignedInteger('users_id');
+            $table->unsignedBigInteger('users_id');
             $table->foreign('users_id')
                     ->references('id')->on('users')
                     ->onDelete('cascade');
 
             //clave foranea
-            $table->unsignedInteger('clients_id');
+            $table->unsignedBigInteger('clients_id');
             $table->foreign('clients_id')
                     ->references('id')->on('clients')
                     ->onDelete('cascade');

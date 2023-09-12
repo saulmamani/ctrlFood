@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+    laravel.fpm:
+        build:
+            context: .
+            target: fpm_server
+        image: ctrl_food/fpm_server
+        environment:
+            APP_DEBUG: "true"
+        networks:
+            - ctrl_food
+    laravel.web:
+        build:
+            context: .
+            target: web_server
+        image: ctrl_food/web_server
+        ports:
+            - '8080:80'
+        environment:
+            APP_NAME: "ctrl_food"
+            FPM_HOST: "laravel.fpm:9000"
+        networks:
+            - ctrl_food
+    laravel.frontend:
+        build:
+            context: .
+            target: frontend
+        image: ctrl_food/frontend
+        networks:
+            - ctrl_food
+networks:
+    ctrl_food:
+        driver: bridge

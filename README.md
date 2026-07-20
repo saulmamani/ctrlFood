@@ -12,7 +12,26 @@ Sistema para la venta de comidas y bebidas.
 
 Orientado a restaurants, fondas, pollerias, pensiones, franquicias de comida rápida, etc.
 
+## 🐳 Instalación con Docker
+
+Para configurar y ejecutar rápidamente nuestra aplicación usando Docker, siga estos pasos:
+
+1. **Instale Docker:** Si no tiene Docker instalado, puede descargarlo e instalarlo desde el [sitio web oficial de Docker](https://www.docker.com/get-started).
+
+2. **Clonar el repositorio:**
+
+3. **Accede al fichero del proyecto:**
+`cd ctrlFood`
+
+3. **Despliega con docker compose:**
+`docker compose up -d`
+
+**Listo. Ahora el proyecto esta en : http://localhost:8080**
+Recuerda que puedes cambiar el puerto del servidor web Nginx, editando la linea N° 18 en el compose.yaml
+
 ## Instalación
+
+##
 
 `git clone https://github.com/saulmamani/ctrlFood.git`
 

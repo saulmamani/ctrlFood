@@ -14,9 +14,7 @@
 use App\Http\Controllers\ProductController;
 use App\Models\Detail;
 
-Route::get('/', function () {
-    return redirect('home');
-});
+Route::get('/', 'HomeController@index');
 
 
 Auth::routes();
@@ -44,8 +42,4 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('reporte_economico', 'ReporteController@reporte_economico');
     Route::get('reporte_estadistico', 'ReporteController@reporte_estadistico');
 
-});
-
-Route::get('prueba', function(){
-   return Detail::all();
 });

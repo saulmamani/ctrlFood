@@ -23,6 +23,12 @@ class UserController extends AppBaseController
         $this->userRepository = $userRepo;
     }
 
+    public function getUser(Request $request)
+    {
+        $user = Auth::user();
+        return response()->json($user);
+    }
+
     /**
      * Display a listing of the User.
      *
